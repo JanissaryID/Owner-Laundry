@@ -6,10 +6,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,6 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewButtonMenu(
     title: String,
@@ -33,8 +31,6 @@ fun ViewButtonMenu(
     Card(
         modifier = Modifier.padding(top = 16.dp, bottom = 16.dp, start = 4.dp, end = 4.dp),
         shape = RoundedCornerShape(40),
-        backgroundColor = Color.Transparent,
-        elevation = 0.dp,
     ) {
         Surface(
             modifier = Modifier
@@ -43,9 +39,9 @@ fun ViewButtonMenu(
                 .clickable {
                     onClick.invoke(index)
                 },
-            color = if (!selected) MaterialTheme.colors.primary else color,
+            color = if (!selected) MaterialTheme.colorScheme.primary else color,
             shape = RoundedCornerShape(40),
-            contentColor = if (!selected) color else MaterialTheme.colors.primary,
+            contentColor = if (!selected) color else MaterialTheme.colorScheme.primary,
         ){
             Text(
                 text = title,

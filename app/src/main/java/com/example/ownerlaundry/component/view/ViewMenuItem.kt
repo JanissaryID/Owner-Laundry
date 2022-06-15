@@ -1,17 +1,13 @@
 package com.example.ownerlaundry.component.view
 
 import android.widget.Toast
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +20,7 @@ import androidx.navigation.NavController
 import com.example.ownerlaundry.*
 import com.example.ownerlaundry.navigation.Screens
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewMenuItem(
     id_menu: String,
@@ -65,7 +62,7 @@ fun ViewMenuItem(
                 val (NumberTitle, TitleMenu, ClassMachine) = createRefs()
 
                 Text(
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colorScheme.primary,
                     text = title_Menu,
                     fontWeight = FontWeight.Bold,
                     fontSize = 24.sp,
@@ -81,7 +78,7 @@ fun ViewMenuItem(
 
                 Surface(
                     shape = RoundedCornerShape(20.dp),
-                    color = if(is_packet) MaterialTheme.colors.primary else MaterialTheme.colors.surface,
+                    color = if(is_packet) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
                     modifier = Modifier.wrapContentHeight()
                     .constrainAs(TitleMenu)
                     {
@@ -90,7 +87,7 @@ fun ViewMenuItem(
                     }
                 ) {
                     Text(
-                        color = if(is_packet) MaterialTheme.colors.surface else Color.LightGray,
+                        color = if(is_packet) MaterialTheme.colorScheme.surface else Color.LightGray,
                         text = if(is_packet) "Packet Menu" else "Not Packet Menu",
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp,
@@ -101,7 +98,7 @@ fun ViewMenuItem(
                     text = if(is_dryer) "Menu Dryer" else "Not Menu Dryer",
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp,
-                    color = if(is_dryer) Color.Red else MaterialTheme.colors.secondary,
+                    color = if(is_dryer) Color.Red else MaterialTheme.colorScheme.secondary,
                     modifier = Modifier
                         .wrapContentHeight()
                         .padding(start = 8.dp)

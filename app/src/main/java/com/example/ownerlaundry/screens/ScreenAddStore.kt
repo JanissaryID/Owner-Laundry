@@ -5,13 +5,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -22,35 +17,28 @@ import androidx.navigation.NavController
 import com.example.ownerlaundry.*
 import com.example.ownerlaundry.api.store.StoreViewModel
 import com.example.ownerlaundry.component.ButtonView
-import com.example.ownerlaundry.component.store.StoreLoadData
 import com.example.ownerlaundry.component.view.ViewTopBar
 import com.example.ownerlaundry.navigation.Screens
 
+@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ScreenAddStore(
     storeViewModel: StoreViewModel,
     navController: NavController,
-//    priceViewModel: PriceViewModel,
-//    settingViewModel: SettingViewModel,
-//    machineViewModel: MachineViewModel,
-//    transactionViewModel: TransactionViewModel
 ) {
     val context = LocalContext.current
 
     Scaffold(
         topBar = { ViewTopBar(
             navController = navController,
-            title = TITLE_SCREEN[1],
+            title = if(STORE_EDIT) "Edit Store" else "Add Store",
             screenBack = Screens.Home.route,
         ) },
-        backgroundColor = MaterialTheme.colors.background
     ){
         WallAddStore(
             storeViewModel = storeViewModel,
             navController = navController,
-//            priceViewModel = priceViewModel,
-//            machineViewModel = machineViewModel
         )
     }
 }
@@ -60,8 +48,6 @@ fun ScreenAddStore(
 fun WallAddStore(
     storeViewModel: StoreViewModel,
     navController: NavController,
-//    priceViewModel: PriceViewModel,
-//    machineViewModel: MachineViewModel
 ) {
     val dataName = listOf(
         "Store Name",
@@ -74,6 +60,8 @@ fun WallAddStore(
     val scrollState = rememberScrollState()
 
     var button_enable by remember { mutableStateOf(false) }
+
+    var button_clicked by remember { mutableStateOf(false) }
 
     var text_name by remember { mutableStateOf(TextFieldValue(STORE_NAME)) }
     var text_address by remember { mutableStateOf(TextFieldValue(STORE_ADDRESS)) }
@@ -94,10 +82,10 @@ fun WallAddStore(
                 end.linkTo(parent.end)
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.onSurface,
-                focusedLabelColor = MaterialTheme.colors.onSurface,
-                textColor = MaterialTheme.colors.onSurface,
-                cursorColor = MaterialTheme.colors.onSurface
+                focusedBorderColor = MaterialTheme.colorScheme.onSurface,
+                focusedLabelColor = MaterialTheme.colorScheme.onSurface,
+                textColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.onSurface
             ),
             value = text_name,
             label = { Text(text = dataName[0]) },
@@ -113,10 +101,10 @@ fun WallAddStore(
                 end.linkTo(parent.end)
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.onSurface,
-                focusedLabelColor = MaterialTheme.colors.onSurface,
-                textColor = MaterialTheme.colors.onSurface,
-                cursorColor = MaterialTheme.colors.onSurface
+                focusedBorderColor = MaterialTheme.colorScheme.onSurface,
+                focusedLabelColor = MaterialTheme.colorScheme.onSurface,
+                textColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.onSurface
             ),
             value = text_address,
             label = { Text(text = dataName[1]) },
@@ -132,10 +120,10 @@ fun WallAddStore(
                 end.linkTo(parent.end)
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.onSurface,
-                focusedLabelColor = MaterialTheme.colors.onSurface,
-                textColor = MaterialTheme.colors.onSurface,
-                cursorColor = MaterialTheme.colors.onSurface
+                focusedBorderColor = MaterialTheme.colorScheme.onSurface,
+                focusedLabelColor = MaterialTheme.colorScheme.onSurface,
+                textColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.onSurface
             ),
             value = text_city,
             label = { Text(text = dataName[2]) },
@@ -151,10 +139,10 @@ fun WallAddStore(
                 end.linkTo(parent.end)
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.onSurface,
-                focusedLabelColor = MaterialTheme.colors.onSurface,
-                textColor = MaterialTheme.colors.onSurface,
-                cursorColor = MaterialTheme.colors.onSurface
+                focusedBorderColor = MaterialTheme.colorScheme.onSurface,
+                focusedLabelColor = MaterialTheme.colorScheme.onSurface,
+                textColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.onSurface
             ),
             value = text_password,
             label = { Text(text = dataName[3]) },
@@ -163,12 +151,7 @@ fun WallAddStore(
             }
         )
 
-        if(text_name.text != "" && text_address.text != "" && text_city.text != "" && text_password.text != ""){
-            button_enable = true
-        }
-        else{
-            button_enable = false
-        }
+        if(text_name.text != "" && text_address.text != "" && text_city.text != "" && text_password.text != "" && !button_clicked) button_enable = true else button_enable = false
 
         ButtonView(title = if(STORE_EDIT) "Save Edit Store" else "Save Store", modifier.constrainAs(buttonAddStore) {
             bottom.linkTo(parent.bottom, 16.dp)
@@ -176,6 +159,8 @@ fun WallAddStore(
             end.linkTo(parent.end)
         }, button_enable){
             if (STORE_EDIT){
+                button_clicked = true
+                button_enable = false
 //                Toast.makeText(context, "Edit Save Machine", Toast.LENGTH_SHORT).show()
                 storeViewModel.updateStore(
                     storeName = text_name.text,
@@ -188,6 +173,8 @@ fun WallAddStore(
 
             }
             else{
+                button_clicked = true
+                button_enable = false
 //                Toast.makeText(context, "Save Machine", Toast.LENGTH_SHORT).show()
                 storeViewModel.insertStore(
                     name = text_name.text,

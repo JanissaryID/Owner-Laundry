@@ -4,11 +4,12 @@ import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.compose.material.*
+import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -31,17 +32,17 @@ fun ViewTopBarEdit(
     priceViewModel: PriceViewModel = PriceViewModel(),
     menuViewModel: MenuViewModel = MenuViewModel()
 ) {
+
     val context = LocalContext.current
-    TopAppBar(
+
+    SmallTopAppBar(
         title = {
             Text(
                 text = title,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colorScheme.primary,
             )
         },
-        backgroundColor = MaterialTheme.colors.onPrimary,
-        elevation = 0.dp,
         navigationIcon = {
             IconButton(
                 onClick = {
@@ -65,7 +66,7 @@ fun ViewTopBarEdit(
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Menu",
-                    tint = MaterialTheme.colors.primary
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         },
@@ -99,7 +100,7 @@ fun ViewTopBarEdit(
                         }
                     }
                 }) {
-                Icon(painter = painterResource(id = R.drawable.ic_baseline_delete_24), contentDescription = "Delete", tint = MaterialTheme.colors.primary)
+                Icon(painter = painterResource(id = R.drawable.ic_baseline_delete_24), contentDescription = "Delete", tint = MaterialTheme.colorScheme.primary)
             }
         }
     )
@@ -113,16 +114,14 @@ fun ViewTopBar(
     screenBack: String
 ) {
     val context = LocalContext.current
-    TopAppBar(
+    SmallTopAppBar(
         title = {
             Text(
                 text = title,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colorScheme.primary,
             )
         },
-        backgroundColor = MaterialTheme.colors.onPrimary,
-        elevation = 0.dp,
         navigationIcon = {
             IconButton(
                 onClick = {
@@ -136,7 +135,7 @@ fun ViewTopBar(
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Menu",
-                    tint = MaterialTheme.colors.primary
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         }
@@ -151,16 +150,14 @@ fun ViewTopBarMenu(
     screenBack: String
 ) {
     val context = LocalContext.current
-    TopAppBar(
+    SmallTopAppBar(
         title = {
             Text(
                 text = title,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colorScheme.primary,
             )
         },
-        backgroundColor = MaterialTheme.colors.onPrimary,
-        elevation = 0.dp,
         navigationIcon = {
             IconButton(
                 onClick = {
@@ -174,7 +171,7 @@ fun ViewTopBarMenu(
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Menu",
-                    tint = MaterialTheme.colors.primary
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         },
@@ -184,7 +181,7 @@ fun ViewTopBarMenu(
                     navController.navigate(route = Screens.AddStore.route)
 //                    Toast.makeText(context, "Menu", Toast.LENGTH_SHORT).show()
                 }) {
-                Icon(painter = painterResource(id = R.drawable.ic_baseline_edit_24), contentDescription = "Edit Store", tint = MaterialTheme.colors.primary)
+                Icon(painter = painterResource(id = R.drawable.ic_baseline_edit_24), contentDescription = "Edit Store", tint = MaterialTheme.colorScheme.primary)
             }
         }
     )
@@ -197,23 +194,21 @@ fun ViewTopBarHome(
 ) {
     val context = LocalContext.current
 
-    TopAppBar(
+    SmallTopAppBar(
         title = {
             Text(
                 text = title,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colorScheme.primary,
             )
         },
-        backgroundColor = MaterialTheme.colors.onPrimary,
-        elevation = 0.dp,
         actions = {
             IconButton(
                 onClick = {
                     navController.navigate(route = Screens.Setting.route)
 //                    Toast.makeText(context, "Menu", Toast.LENGTH_SHORT).show()
                 }) {
-                Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Menu", tint = MaterialTheme.colors.primary)
+                Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Menu", tint = MaterialTheme.colorScheme.primary)
             }
         }
     )
@@ -229,16 +224,16 @@ fun ViewTopBarTransaction(
     screenBack: String
 ) {
     val context = LocalContext.current
-    TopAppBar(
+    var button_clicked by remember { mutableStateOf(true) }
+
+    SmallTopAppBar(
         title = {
             Text(
                 text = title,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.primary,
+                color = MaterialTheme.colorScheme.primary,
             )
         },
-        backgroundColor = MaterialTheme.colors.onPrimary,
-        elevation = 0.dp,
         navigationIcon = {
             IconButton(
                 onClick = {
@@ -262,7 +257,7 @@ fun ViewTopBarTransaction(
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Menu",
-                    tint = MaterialTheme.colors.primary
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         },
@@ -273,19 +268,21 @@ fun ViewTopBarTransaction(
 //                    navController.navigate(route = Screens.Setting.route)
 //                    Toast.makeText(context, "Calendar", Toast.LENGTH_SHORT).show()
                 }) {
-                Icon(painter = painterResource(id = R.drawable.ic_baseline_calendar_today_24), contentDescription = "Calendar", tint = MaterialTheme.colors.primary)
+                Icon(painter = painterResource(id = R.drawable.ic_baseline_calendar_today_24), contentDescription = "Calendar", tint = MaterialTheme.colorScheme.primary)
             }
             IconButton(
+                enabled = button_clicked,
                 onClick = {
 //                    navController.navigate(route = Screens.Setting.route)
 //                    Log.d("debug", "Data : $EXCEL_VALUE")
+                    button_clicked = false
                     Toast.makeText(context, "Export", Toast.LENGTH_SHORT).show()
                     excelViewModel.createExcelSheet(DATE_PICK)
                     if (excelViewModel.stateExcel == 1){
                         Toast.makeText(context, "Success Export", Toast.LENGTH_SHORT).show()
                     }
                 }) {
-                Icon(painter = painterResource(id = R.drawable.ic_baseline_input_24), contentDescription = "Export", tint = MaterialTheme.colors.primary)
+                Icon(painter = painterResource(id = R.drawable.ic_baseline_input_24), contentDescription = "Export", tint = MaterialTheme.colorScheme.primary)
             }
         }
     )

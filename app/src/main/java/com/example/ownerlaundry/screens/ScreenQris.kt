@@ -2,13 +2,12 @@ package com.example.ownerlaundry.screens
 
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -17,30 +16,19 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.ownerlaundry.QRIS_DATA
-//import com.example.ownerlaundry.QRIS_DATA
 import com.example.ownerlaundry.TITLE_SCREEN
 import com.example.ownerlaundry.api.qris.QrisViewModel
-import com.example.ownerlaundry.api.store.StoreViewModel
 import com.example.ownerlaundry.component.ButtonView
 import com.example.ownerlaundry.component.view.ViewTopBar
 import com.example.ownerlaundry.navigation.Screens
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenQris(
     qrisViewModel: QrisViewModel,
     navController: NavController,
-//    priceViewModel: PriceViewModel,
-//    settingViewModel: SettingViewModel,
-//    machineViewModel: MachineViewModel,
-//    transactionViewModel: TransactionViewModel
 ) {
     val context = LocalContext.current
-
-//    BackHandler(enabled = false) {
-//        //do nothing
-//        QRIS_DATA.clear()
-////        Log.d("debug", "Data Qris : ${QRIS_DATA}")
-//    }
 
     Scaffold(
         topBar = { ViewTopBar(
@@ -48,7 +36,6 @@ fun ScreenQris(
             title = TITLE_SCREEN[2],
             screenBack = Screens.Menu.route
         ) },
-        backgroundColor = MaterialTheme.colors.background
     ){
         WallAddQris(
             qrisViewModel = qrisViewModel,
@@ -77,6 +64,7 @@ fun WallAddQris(
     val scrollState = rememberScrollState()
 
     var button_enable by remember { mutableStateOf(false) }
+    var button_clicked by remember { mutableStateOf(false) }
 
     var text_client_key by remember { mutableStateOf(TextFieldValue("")) }
     var text_client_id by remember { mutableStateOf(TextFieldValue("")) }
@@ -106,10 +94,10 @@ fun WallAddQris(
                 end.linkTo(parent.end)
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.onSurface,
-                focusedLabelColor = MaterialTheme.colors.onSurface,
-                textColor = MaterialTheme.colors.onSurface,
-                cursorColor = MaterialTheme.colors.onSurface
+                focusedBorderColor = MaterialTheme.colorScheme.onSurface,
+                focusedLabelColor = MaterialTheme.colorScheme.onSurface,
+                textColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.onSurface
             ),
             value = text_client_key,
             label = { Text(text = dataName[0]) },
@@ -125,10 +113,10 @@ fun WallAddQris(
                 end.linkTo(parent.end)
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.onSurface,
-                focusedLabelColor = MaterialTheme.colors.onSurface,
-                textColor = MaterialTheme.colors.onSurface,
-                cursorColor = MaterialTheme.colors.onSurface
+                focusedBorderColor = MaterialTheme.colorScheme.onSurface,
+                focusedLabelColor = MaterialTheme.colorScheme.onSurface,
+                textColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.onSurface
             ),
             value = text_client_id,
             label = { Text(text = dataName[1]) },
@@ -144,10 +132,10 @@ fun WallAddQris(
                 end.linkTo(parent.end)
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.onSurface,
-                focusedLabelColor = MaterialTheme.colors.onSurface,
-                textColor = MaterialTheme.colors.onSurface,
-                cursorColor = MaterialTheme.colors.onSurface
+                focusedBorderColor = MaterialTheme.colorScheme.onSurface,
+                focusedLabelColor = MaterialTheme.colorScheme.onSurface,
+                textColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.onSurface
             ),
             value = text_merchant_id,
             label = { Text(text = dataName[2]) },
@@ -156,7 +144,7 @@ fun WallAddQris(
             }
         )
 
-        if(text_client_key.text != "" && text_client_id.text != "" && text_merchant_id.text != ""){
+        if(text_client_key.text != "" && text_client_id.text != "" && text_merchant_id.text != "" && !button_clicked){
             button_enable = true
         }
         else{
@@ -168,6 +156,8 @@ fun WallAddQris(
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         }, button_enable){
+            button_clicked = true
+            button_enable = false
             if (QRIS_DATA.isNullOrEmpty()){
                 qrisViewModel.insertQris(
                     clientkey = text_client_key.text,
@@ -178,6 +168,8 @@ fun WallAddQris(
 //                Toast.makeText(context, "Empty Data", Toast.LENGTH_SHORT).show()
             }
             else{
+                button_clicked = true
+                button_enable = false
                 qrisViewModel.updateQris(
                     clientkey = text_client_key.text,
                     clientID = text_client_id.text,
@@ -187,14 +179,6 @@ fun WallAddQris(
                 )
 //                Toast.makeText(context, "Data Found", Toast.LENGTH_SHORT).show()
             }
-
-//            storeViewModel.insertStore(
-//                name = text_name.text,
-//                address = text_address.text,
-//                city = text_city.text,
-//                password = text_password.text,
-//                navController = navController
-//            )
         }
         if(qrisViewModel.stateQris == 4){
             Toast.makeText(context, "Try Again", Toast.LENGTH_SHORT).show()

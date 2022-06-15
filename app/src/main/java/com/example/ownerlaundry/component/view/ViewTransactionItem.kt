@@ -5,9 +5,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewTransactionItem(
     title_machine: String,
@@ -41,7 +43,7 @@ fun ViewTransactionItem(
                 val (PriceTitle, PriceType, Price, PriceTime) = createRefs()
 
                 Text(
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colorScheme.primary,
                     text = title_machine,
                     fontWeight = FontWeight.Bold,
                     fontSize = 14.sp,
@@ -55,7 +57,7 @@ fun ViewTransactionItem(
                 )
 
                 Text(
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colorScheme.primary,
                     text = type_machine,
                     fontWeight = FontWeight.Normal,
                     fontSize = 12.sp,
@@ -69,7 +71,7 @@ fun ViewTransactionItem(
                 )
 
                 Text(
-                    color = Color.Green,
+                    color = MaterialTheme.colorScheme.inverseSurface,
                     text = price,
                     fontWeight = FontWeight.Bold,
                     fontSize = 12.sp,
@@ -86,7 +88,7 @@ fun ViewTransactionItem(
                     text = type_payment,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 12.sp,
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .wrapContentHeight()
                         .padding(start = 8.dp)

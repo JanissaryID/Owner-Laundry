@@ -9,7 +9,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.runtime.*
@@ -32,11 +32,11 @@ import com.example.ownerlaundry.api.menu.MenuViewModel
 import com.example.ownerlaundry.api.price.PriceViewModel
 import com.example.ownerlaundry.component.ButtonView
 import com.example.ownerlaundry.component.ViewButtonMenu
-import com.example.ownerlaundry.component.view.ViewTopBar
 import com.example.ownerlaundry.component.view.ViewTopBarEdit
 import com.example.ownerlaundry.navigation.Screens
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenPriceAddEdit(
     menuViewModel: MenuViewModel,
@@ -54,7 +54,6 @@ fun ScreenPriceAddEdit(
             title = if(PRICE_EDIT) "Edit Price" else TITLE_SCREEN[6],
             screenBack = Screens.Price.route,
         ) },
-        backgroundColor = MaterialTheme.colors.background
     ){
         WallPriceAddEdit(
             menuViewModel = menuViewModel,
@@ -88,6 +87,7 @@ fun WallPriceAddEdit(
     var expanded by remember { mutableStateOf(false) }
 
     var button_enable by remember { mutableStateOf(false) }
+    var button_check by remember { mutableStateOf(false) }
 
     var textfieldSize by remember { mutableStateOf(Size.Zero)}
 
@@ -140,10 +140,10 @@ fun WallPriceAddEdit(
                     end.linkTo(parent.end)
                 },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.onSurface,
-                focusedLabelColor = MaterialTheme.colors.onSurface,
-                textColor = MaterialTheme.colors.onSurface,
-                cursorColor = MaterialTheme.colors.onSurface
+                focusedBorderColor = MaterialTheme.colorScheme.onSurface,
+                focusedLabelColor = MaterialTheme.colorScheme.onSurface,
+                textColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.onSurface
             ),
             value = text_name_price,
             label = { Text(text = dataName[0]) },
@@ -163,10 +163,10 @@ fun WallPriceAddEdit(
                     end.linkTo(parent.end)
                 },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.onSurface,
-                focusedLabelColor = MaterialTheme.colors.onSurface,
-                textColor = MaterialTheme.colors.onSurface,
-                cursorColor = MaterialTheme.colors.onSurface
+                focusedBorderColor = MaterialTheme.colorScheme.onSurface,
+                focusedLabelColor = MaterialTheme.colorScheme.onSurface,
+                textColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.onSurface
             ),
             value = text_price,
             label = { Text(text = dataName[1]) },
@@ -186,10 +186,10 @@ fun WallPriceAddEdit(
                     end.linkTo(parent.end)
                 },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.onSurface,
-                focusedLabelColor = MaterialTheme.colors.onSurface,
-                textColor = MaterialTheme.colors.onSurface,
-                cursorColor = MaterialTheme.colors.onSurface
+                focusedBorderColor = MaterialTheme.colorScheme.onSurface,
+                focusedLabelColor = MaterialTheme.colorScheme.onSurface,
+                textColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.onSurface
             ),
             value = text_time_price,
             label = { Text(text = dataName[2]) },
@@ -219,7 +219,7 @@ fun WallPriceAddEdit(
                         selected = if(selected_index == index) false else true,
                         onClick = on_click_index,
 //                        priceViewModel = priceViewModel,
-                        color = MaterialTheme.colors.surface
+                        color = MaterialTheme.colorScheme.surface
                     )
                 }
             }
@@ -264,14 +264,13 @@ fun WallPriceAddEdit(
                     selectedDryer = label.isDryer!!
                     selectedIdMenu = label.id.toString()
                     expanded = false
-                }) {
-                    Text(text = label.priceMenu.toString())
-                }
+                }, text = {Text(text = label.priceMenu.toString())
+                })
             }
             }
         }
 
-        if(text_name_price.text != "" && text_price.text != "" && text_time_price.text != "" && selected_index != -1 && selectedText != ""){
+        if(text_name_price.text != "" && text_price.text != "" && text_time_price.text != "" && selected_index != -1 && selectedText != "" && !button_check){
             button_enable = true
         }
         else{
@@ -286,6 +285,8 @@ fun WallPriceAddEdit(
 //            Log.d("debug", "dryer $button_dryer_menu packet $button_packet_menu")
             if (PRICE_EDIT){
 //                Toast.makeText(context, "Edit Save Price", Toast.LENGTH_SHORT).show()
+                button_check = true
+                button_enable = false
                 priceViewModel.updatePrice(
                     priceTitle = text_name_price.text,
                     price = text_price.text,
@@ -300,6 +301,8 @@ fun WallPriceAddEdit(
             }
             else{
 //                Toast.makeText(context, "Save Price", Toast.LENGTH_SHORT).show()
+                button_check = true
+                button_enable = false
                 priceViewModel.insertPrice(
                     priceTitle = text_name_price.text,
                     price = text_price.text,

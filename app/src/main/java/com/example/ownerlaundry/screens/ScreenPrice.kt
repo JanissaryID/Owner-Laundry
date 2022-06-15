@@ -3,40 +3,30 @@ package com.example.ownerlaundry.screens
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.ownerlaundry.*
-import com.example.ownerlaundry.api.menu.MenuViewModel
 import com.example.ownerlaundry.api.price.PriceViewModel
-import com.example.ownerlaundry.component.menu.MenuLoadData
 import com.example.ownerlaundry.component.price.PriceLoadData
 import com.example.ownerlaundry.component.view.ViewTopBar
 import com.example.ownerlaundry.navigation.Screens
 
+@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ScreenPrice(
     priceViewModel: PriceViewModel,
     navController: NavController,
-//    priceViewModel: PriceViewModel,
-//    settingViewModel: SettingViewModel,
-//    machineViewModel: MachineViewModel,
-//    transactionViewModel: TransactionViewModel
 ) {
     val context = LocalContext.current
-//    Log.d("debug", "Data Qris : $QRIS_DATA")
 
     Scaffold(
         topBar = { ViewTopBar(
@@ -44,10 +34,8 @@ fun ScreenPrice(
             title = TITLE_SCREEN[5],
             screenBack = Screens.Menu.route
         ) },
-        backgroundColor = MaterialTheme.colors.background,
         floatingActionButton = {
             FloatingActionButton(
-                backgroundColor = MaterialTheme.colors.primary,
                 modifier = Modifier.padding(24.dp),
                 onClick = {
                     PRICE_TITLE = ""
@@ -70,19 +58,14 @@ fun ScreenPrice(
         WallPrice(
             priceViewModel = priceViewModel,
             navController = navController,
-//            priceViewModel = priceViewModel,
-//            machineViewModel = machineViewModel
         )
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WallPrice(
     priceViewModel: PriceViewModel,
     navController: NavController,
-//    priceViewModel: PriceViewModel,
-//    machineViewModel: MachineViewModel
 ) {
     var selectedIndex by remember { mutableStateOf(-1) }
     val onItemClick = { index: Int -> selectedIndex = index}

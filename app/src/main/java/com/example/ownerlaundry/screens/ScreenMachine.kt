@@ -6,12 +6,12 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.FloatingActionButton
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
+import androidx.compose.material3.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -19,15 +19,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.ownerlaundry.*
 import com.example.ownerlaundry.api.machine.MachineViewModel
-import com.example.ownerlaundry.api.transaction.TransactionViewModel
 import com.example.ownerlaundry.component.machine.MachineLoadData
-import com.example.ownerlaundry.component.transaction.TransactionLoadData
 import com.example.ownerlaundry.component.view.ViewDialogCalendar
 import com.example.ownerlaundry.component.view.ViewTopBar
-import com.example.ownerlaundry.component.view.ViewTopBarTransaction
-import com.example.ownerlaundry.excel.ExcelViewModel
 import com.example.ownerlaundry.navigation.Screens
 
+@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ScreenMachine(
@@ -43,10 +40,8 @@ fun ScreenMachine(
             title = TITLE_SCREEN[8],
             screenBack = Screens.Menu.route
         ) },
-        backgroundColor = MaterialTheme.colors.background,
         floatingActionButton = {
             FloatingActionButton(
-                backgroundColor = MaterialTheme.colors.primary,
                 modifier = Modifier.padding(24.dp),
                 onClick = {
                     MACHINE_ID = ""
@@ -75,8 +70,6 @@ fun ScreenMachine(
 fun WallMachine(
     machineViewModel: MachineViewModel,
     navController: NavController,
-//    priceViewModel: PriceViewModel,
-//    machineViewModel: MachineViewModel
 ) {
     var selectedIndex by remember { mutableStateOf(-1) }
     val onItemClick = { index: Int -> selectedIndex = index}

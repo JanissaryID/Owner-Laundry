@@ -8,12 +8,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -28,6 +28,7 @@ import com.example.ownerlaundry.R
 import com.example.ownerlaundry.ui.theme.OwnerLaundryTheme
 import com.example.ownerlaundry.navigation.Screens
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewStoreItem(
     index: String,
@@ -42,6 +43,7 @@ fun ViewStoreItem(
     val context = LocalContext.current
 
     Card(
+//        containerColor = Color.Transparent,
         shape = RoundedCornerShape(20.dp),
         modifier = Modifier.clickable {
             onClick.invoke(index)
@@ -53,10 +55,11 @@ fun ViewStoreItem(
             STORE_EDIT = true
             QRIS_DATA.clear()
             navController.navigate(route = Screens.Menu.route)
-            Toast.makeText(context, "Clicked $STORE_NAME", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, "Clicked $STORE_NAME", Toast.LENGTH_SHORT).show()
         }
     ) {
         Surface(
+            color = MaterialTheme.colorScheme.surfaceVariant,
             shape = RoundedCornerShape(20.dp),
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp, bottom = 16.dp, top = 16.dp)
@@ -70,9 +73,10 @@ fun ViewStoreItem(
 
                 val (StoreName, StoreAddress, StoreCity, StoreImage, StoreLocation) = createRefs()
 
-                Image(painter = painterResource(
-                    id = R.drawable.ic_storeicon),
-                    contentDescription = "Store Image",
+                Icon(
+                    painter = painterResource(R.drawable.ic_storeicon),
+                    contentDescription = "Menu",
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .wrapContentHeight()
                         .constrainAs(StoreImage)
@@ -83,9 +87,10 @@ fun ViewStoreItem(
                         }
                 )
 
-                Image(painter = painterResource(
-                    id = R.drawable.ic_locationicon),
-                    contentDescription = "Store Image",
+                Icon(
+                    painter = painterResource(R.drawable.ic_locationicon),
+                    contentDescription = "Menu",
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .wrapContentHeight()
                         .constrainAs(StoreLocation)
@@ -100,7 +105,7 @@ fun ViewStoreItem(
                     text = nameStore.toString(),
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .wrapContentHeight()
                         .constrainAs(StoreName)
@@ -114,7 +119,7 @@ fun ViewStoreItem(
                     text = cityStore,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .wrapContentHeight()
                         .constrainAs(StoreCity)
@@ -128,7 +133,7 @@ fun ViewStoreItem(
                     text = addressStore,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 14.sp,
-                    color = MaterialTheme.colors.primary.copy(alpha = 0.7f),
+                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
                     modifier = Modifier
                         .wrapContentHeight()
                         .constrainAs(StoreAddress)

@@ -3,9 +3,9 @@ package com.example.ownerlaundry.component.machine
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +18,6 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.ownerlaundry.R
 import com.example.ownerlaundry.api.machine.MachineModel
-import com.example.ownerlaundry.component.transaction.TransactionColumn
 
 @Composable
 fun MachineLoadData(
@@ -65,7 +64,7 @@ fun MachineLoadData(
                 Text(
                     text = "Can't load data",
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colorScheme.primary,
                 )
             }
 //            Log.d("debug", "Error")
@@ -103,7 +102,7 @@ fun MachineLoadData(
                         text = "Transcation Empty",
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp,
-                        color = MaterialTheme.colors.primary,
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .wrapContentHeight()
                             .constrainAs(TextEmpty)

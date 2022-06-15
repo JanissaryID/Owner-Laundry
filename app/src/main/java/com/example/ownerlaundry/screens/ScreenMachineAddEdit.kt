@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,15 +20,12 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.ownerlaundry.*
 import com.example.ownerlaundry.api.machine.MachineViewModel
-import com.example.ownerlaundry.api.menu.MenuViewModel
-import com.example.ownerlaundry.api.price.PriceViewModel
-import com.example.ownerlaundry.component.ButtonRadio
 import com.example.ownerlaundry.component.ButtonView
 import com.example.ownerlaundry.component.ViewButtonMenu
-import com.example.ownerlaundry.component.view.ViewTopBar
 import com.example.ownerlaundry.component.view.ViewTopBarEdit
 import com.example.ownerlaundry.navigation.Screens
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenMachineAddEdit(
     machineViewModel: MachineViewModel,
@@ -42,7 +39,6 @@ fun ScreenMachineAddEdit(
             title = if (MENU_EDIT) "Edit Machine" else TITLE_SCREEN[9],
             screenBack = Screens.Machine.route,
         ) },
-        backgroundColor = MaterialTheme.colors.background
     ){
         WallMenuPriceAddEdit(
             machineViewModel = machineViewModel,
@@ -108,10 +104,10 @@ fun WallMenuPriceAddEdit(
                     end.linkTo(parent.end)
                 },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.onSurface,
-                focusedLabelColor = MaterialTheme.colors.onSurface,
-                textColor = MaterialTheme.colors.onSurface,
-                cursorColor = MaterialTheme.colors.onSurface
+                focusedBorderColor = MaterialTheme.colorScheme.onSurface,
+                focusedLabelColor = MaterialTheme.colorScheme.onSurface,
+                textColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.onSurface
             ),
             value = text_number,
             label = { Text(text = dataName[0]) },
@@ -141,7 +137,7 @@ fun WallMenuPriceAddEdit(
                         selected = if(selected_index_class == index) false else true,
                         onClick = on_click_index_class,
 //                        priceViewModel = priceViewModel,
-                        color = MaterialTheme.colors.surface
+                        color = MaterialTheme.colorScheme.surface
                     )
                 }
             }
@@ -168,7 +164,7 @@ fun WallMenuPriceAddEdit(
                         selected = if(selected_index_type == index) false else true,
                         onClick = on_click_index_type,
 //                        priceViewModel = priceViewModel,
-                        color = MaterialTheme.colors.surface
+                        color = MaterialTheme.colorScheme.surface
                     )
                 }
             }

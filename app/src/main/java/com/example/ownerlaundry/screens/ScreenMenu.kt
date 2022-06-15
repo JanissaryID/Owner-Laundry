@@ -2,38 +2,26 @@ package com.example.ownerlaundry.screens
 
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.ownerlaundry.*
 import com.example.ownerlaundry.R
-import com.example.ownerlaundry.api.store.StoreViewModel
-import com.example.ownerlaundry.component.store.StoreLoadData
-import com.example.ownerlaundry.component.view.ViewStoreItem
-import com.example.ownerlaundry.component.view.ViewTopBar
-import com.example.ownerlaundry.component.view.ViewTopBarHome
 import com.example.ownerlaundry.component.view.ViewTopBarMenu
 import com.example.ownerlaundry.navigation.Screens
-import com.example.ownerlaundry.ui.theme.OwnerLaundryTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenMenu(
 //    storeViewModel: StoreViewModel,
@@ -51,7 +39,6 @@ fun ScreenMenu(
             title = STORE_NAME,
             screenBack = Screens.Home.route
         ) },
-        backgroundColor = MaterialTheme.colors.background,
     ){
         WallMenu(
 //            storeViewModel = storeViewModel
@@ -62,6 +49,7 @@ fun ScreenMenu(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WallMenu(
 //    storeViewModel: StoreViewModel
@@ -71,11 +59,11 @@ fun WallMenu(
 ) {
     val context = LocalContext.current
 
-    Box(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
+    Box(modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)) {
         Column() {
             Row() {
                 Surface(
-                    modifier = Modifier.height(160.dp).weight(1f),shape = RoundedCornerShape(20.dp), color = MaterialTheme.colors.primary
+                    modifier = Modifier.height(160.dp).weight(1f),shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.primary
                 ){
                     Card(
                         shape = RoundedCornerShape(17.dp),
@@ -93,9 +81,10 @@ fun WallMenu(
                         ) {
                             val (image, title) = createRefs()
 
-                            Image(painter = painterResource(
-                                id = R.drawable.ic_menu),
+                            Icon(
+                                painter = painterResource(R.drawable.ic_menu),
                                 contentDescription = "Menu Image",
+//                                tint = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier
                                     .wrapContentHeight()
                                     .constrainAs(image)
@@ -111,7 +100,7 @@ fun WallMenu(
                                 text = "Menu",
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 20.sp,
-                                color = MaterialTheme.colors.primary,
+                                color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier
                                     .wrapContentHeight()
                                     .constrainAs(title)
@@ -127,12 +116,12 @@ fun WallMenu(
                 }
                 Spacer(Modifier.width(16.0.dp))
                 Surface(
-                    modifier = Modifier.height(160.dp).weight(1f),shape = RoundedCornerShape(20.dp), color = MaterialTheme.colors.primary
+                    modifier = Modifier.height(160.dp).weight(1f),shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.primary
                 ){
                     Card(
                         modifier = Modifier.padding(5.dp).clickable {
                             navController.navigate(route = Screens.Qris.route)
-                            Toast.makeText(context, "Clicked Qris", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(context, "Clicked Qris", Toast.LENGTH_SHORT).show()
                         },
                         shape = RoundedCornerShape(17.dp)
                     ) {
@@ -143,9 +132,10 @@ fun WallMenu(
                         ) {
                             val (image, title) = createRefs()
 
-                            Image(painter = painterResource(
-                                id = R.drawable.ic_qris),
+                            Icon(
+                                painter = painterResource(R.drawable.ic_qris),
                                 contentDescription = "Qris Image",
+//                                tint = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier
                                     .wrapContentHeight()
                                     .constrainAs(image)
@@ -161,7 +151,7 @@ fun WallMenu(
                                 text = "Qris",
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 20.sp,
-                                color = MaterialTheme.colors.primary,
+                                color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier
                                     .wrapContentHeight()
                                     .constrainAs(title)
@@ -178,7 +168,7 @@ fun WallMenu(
             }
             Spacer(Modifier.height(16.0.dp))
             Surface(
-                modifier = Modifier.height(160.dp),shape = RoundedCornerShape(20.dp), color = MaterialTheme.colors.primary
+                modifier = Modifier.height(160.dp),shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.primary
             ){
                 Card(
                     modifier = Modifier.padding(5.dp).clickable {
@@ -194,11 +184,12 @@ fun WallMenu(
                     ) {
                         val (image, title) = createRefs()
 
-                        Image(painter = painterResource(
-                            id = R.drawable.ic_dollar),
+                        Icon(
+                            painter = painterResource(R.drawable.ic_dollar),
                             contentDescription = "Price Image",
+//                            tint = MaterialTheme.colorScheme.primary,
                             modifier = Modifier
-                                .wrapContentHeight()
+                                .fillMaxHeight()
                                 .constrainAs(image)
                                 {
                                     top.linkTo(parent.top)
@@ -212,15 +203,15 @@ fun WallMenu(
                             text = "Price",
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp,
-                            color = MaterialTheme.colors.primary,
+                            color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier
                                 .wrapContentHeight()
                                 .constrainAs(title)
                                 {
-                                    top.linkTo(parent.top)
+                                    top.linkTo(image.top)
                                     start.linkTo(image.end)
 //                                    end.linkTo(par)
-                                    bottom.linkTo(parent.bottom)
+                                    bottom.linkTo(image.bottom)
                                 }
                         )
                     }
@@ -228,7 +219,7 @@ fun WallMenu(
             }
             Spacer(Modifier.height(16.0.dp))
             Surface(
-                modifier = Modifier.height(160.dp),shape = RoundedCornerShape(20.dp), color = MaterialTheme.colors.primary
+                modifier = Modifier.height(160.dp),shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.primary
             ){
                 Card(
                     modifier = Modifier.padding(5.dp).clickable {
@@ -244,11 +235,12 @@ fun WallMenu(
                     ) {
                         val (image, title) = createRefs()
 
-                        Image(painter = painterResource(
-                            id = R.drawable.ic_bill),
+                        Icon(
+                            painter = painterResource(
+                                id = R.drawable.ic_bill),
                             contentDescription = "Transaction Image",
                             modifier = Modifier
-                                .wrapContentHeight()
+                                .fillMaxHeight()
                                 .constrainAs(image)
                                 {
                                     top.linkTo(parent.top)
@@ -262,15 +254,15 @@ fun WallMenu(
                             text = "Transaction",
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp,
-                            color = MaterialTheme.colors.primary,
+                            color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier
                                 .wrapContentHeight()
                                 .constrainAs(title)
                                 {
-                                    top.linkTo(parent.top)
+                                    top.linkTo(image.top)
                                     start.linkTo(image.end)
 //                                    end.linkTo(par)
-                                    bottom.linkTo(parent.bottom)
+                                    bottom.linkTo(image.bottom)
                                 }
                         )
                     }
@@ -278,7 +270,7 @@ fun WallMenu(
             }
             Spacer(Modifier.height(16.0.dp))
             Surface(
-                modifier = Modifier.height(160.dp),shape = RoundedCornerShape(20.dp), color = MaterialTheme.colors.primary
+                modifier = Modifier.height(160.dp),shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.primary
             ){
                 Card(
                     modifier = Modifier.padding(5.dp).clickable {
@@ -294,11 +286,12 @@ fun WallMenu(
                     ) {
                         val (image, title) = createRefs()
 
-                        Image(painter = painterResource(
-                            id = R.drawable.ic_machine),
+                        Icon(
+                            painter = painterResource(
+                                id = R.drawable.ic_machine),
                             contentDescription = "Machine Image",
                             modifier = Modifier
-                                .wrapContentHeight()
+                                .fillMaxHeight()
                                 .constrainAs(image)
                                 {
                                     top.linkTo(parent.top)
@@ -312,15 +305,15 @@ fun WallMenu(
                             text = "Machine",
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp,
-                            color = MaterialTheme.colors.primary,
+                            color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier
                                 .wrapContentHeight()
                                 .constrainAs(title)
                                 {
-                                    top.linkTo(parent.top)
+                                    top.linkTo(image.top)
                                     start.linkTo(image.end)
 //                                    end.linkTo(par)
-                                    bottom.linkTo(parent.bottom)
+                                    bottom.linkTo(image.bottom)
                                 }
                         )
                     }

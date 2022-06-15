@@ -5,28 +5,23 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.ownerlaundry.*
-import com.example.ownerlaundry.api.price.PriceViewModel
 import com.example.ownerlaundry.api.transaction.TransactionViewModel
-import com.example.ownerlaundry.component.price.PriceLoadData
 import com.example.ownerlaundry.component.transaction.TransactionLoadData
 import com.example.ownerlaundry.component.view.ViewDialogCalendar
-import com.example.ownerlaundry.component.view.ViewTopBar
 import com.example.ownerlaundry.component.view.ViewTopBarTransaction
 import com.example.ownerlaundry.excel.ExcelViewModel
 import com.example.ownerlaundry.navigation.Screens
 
+@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ScreenTransaction(
@@ -35,7 +30,6 @@ fun ScreenTransaction(
     excelViewModel: ExcelViewModel
 ) {
     val context = LocalContext.current
-//    Log.d("debug", "Data Qris : $QRIS_DATA")
 
     Scaffold(
         topBar = { ViewTopBarTransaction(
@@ -44,7 +38,6 @@ fun ScreenTransaction(
             title = TITLE_SCREEN[7],
             screenBack = Screens.Menu.route
         ) },
-        backgroundColor = MaterialTheme.colors.background,
 
     ){
         WallTransaction(

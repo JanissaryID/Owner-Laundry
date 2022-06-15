@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -24,6 +24,7 @@ import com.example.ownerlaundry.component.view.ViewTopBar
 import com.example.ownerlaundry.component.view.ViewTopBarEdit
 import com.example.ownerlaundry.navigation.Screens
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenMenuPriceAddEdit(
     menuViewModel: MenuViewModel,
@@ -41,7 +42,6 @@ fun ScreenMenuPriceAddEdit(
             title = if (MENU_EDIT) "Edit Menu Price" else TITLE_SCREEN[4],
             screenBack = Screens.MenuPrice.route,
         ) },
-        backgroundColor = MaterialTheme.colors.background
     ){
         WallMenuPriceAddEdit(
             menuViewModel = menuViewModel,
@@ -70,6 +70,7 @@ fun WallMenuPriceAddEdit(
     val scrollState = rememberScrollState()
 
     var button_enable by remember { mutableStateOf(false) }
+    var button_clicked by remember { mutableStateOf(false) }
 
     var text_name_menu by remember { mutableStateOf(TextFieldValue(MENU_TITLE)) }
     var button_packet_menu by remember { mutableStateOf(MENU_PACKET) }
@@ -87,6 +88,7 @@ fun WallMenuPriceAddEdit(
         val modifier = Modifier
 
         OutlinedTextField(
+            enabled = !button_clicked,
             modifier = modifier
                 .fillMaxWidth()
                 .constrainAs(TextName) {
@@ -95,10 +97,10 @@ fun WallMenuPriceAddEdit(
                     end.linkTo(parent.end)
                 },
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = MaterialTheme.colors.onSurface,
-                focusedLabelColor = MaterialTheme.colors.onSurface,
-                textColor = MaterialTheme.colors.onSurface,
-                cursorColor = MaterialTheme.colors.onSurface
+                focusedBorderColor = MaterialTheme.colorScheme.onSurface,
+                focusedLabelColor = MaterialTheme.colorScheme.onSurface,
+                textColor = MaterialTheme.colorScheme.onSurface,
+                cursorColor = MaterialTheme.colorScheme.onSurface
             ),
             value = text_name_menu,
             label = { Text(text = dataName[0]) },
@@ -110,7 +112,7 @@ fun WallMenuPriceAddEdit(
         ButtonRadio(
             stateButton = button_packet_menu,
             title = "Packet",
-            color = MaterialTheme.colors.surface,
+            color = MaterialTheme.colorScheme.surface,
             modifier = modifier.constrainAs(buttonPacket) {
                 top.linkTo(TextName.bottom, 16.dp)
                 start.linkTo(parent.start)
@@ -124,7 +126,7 @@ fun WallMenuPriceAddEdit(
         ButtonRadio(
             stateButton = button_dryer_menu,
             title = "Dryer",
-            color = MaterialTheme.colors.surface,
+            color = MaterialTheme.colorScheme.surface,
             modifier = modifier.constrainAs(buttonDryer) {
                 top.linkTo(buttonPacket.bottom)
                 start.linkTo(parent.start)
@@ -135,7 +137,7 @@ fun WallMenuPriceAddEdit(
 //            Log.d("debug", "dryer $button_dryer_menu")
         }
 
-        if(text_name_menu.text != ""){
+        if(text_name_menu.text != "" && !button_clicked){
             button_enable = true
         }
         else{
@@ -150,6 +152,8 @@ fun WallMenuPriceAddEdit(
             Log.d("debug", "dryer $button_dryer_menu packet $button_packet_menu")
             if (MENU_EDIT){
 //                Toast.makeText(context, "Edit Save Menu", Toast.LENGTH_SHORT).show()
+                button_clicked = true
+                button_enable = false
                 menuViewModel.updateMenu(
                     titleMenu = text_name_menu.text,
                     is_packet = button_packet_menu,
@@ -160,6 +164,8 @@ fun WallMenuPriceAddEdit(
             }
             else{
 //                Toast.makeText(context, "Save Menu", Toast.LENGTH_SHORT).show()
+                button_clicked = true
+                button_enable = false
                 menuViewModel.insertMenu(
                     name = text_name_menu.text,
                     is_packet = button_packet_menu,

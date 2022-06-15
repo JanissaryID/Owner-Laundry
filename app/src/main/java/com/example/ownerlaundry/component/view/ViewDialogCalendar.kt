@@ -3,8 +3,8 @@ package com.example.ownerlaundry.component.view
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -16,6 +16,7 @@ import com.example.ownerlaundry.component.ButtonView
 import io.github.boguszpawlowski.composecalendar.SelectableCalendar
 import io.github.boguszpawlowski.composecalendar.rememberSelectableCalendarState
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewDialogCalendar() {
 
@@ -27,8 +28,6 @@ fun ViewDialogCalendar() {
         Card(modifier = Modifier
             .wrapContentHeight(),
             shape = RoundedCornerShape(10),
-            elevation = 0.dp,
-            backgroundColor = MaterialTheme.colors.surface
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 SelectableCalendar(

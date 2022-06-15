@@ -7,9 +7,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,6 +23,7 @@ import androidx.navigation.NavController
 import com.example.ownerlaundry.*
 import com.example.ownerlaundry.navigation.Screens
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewMachineItem(
     index: String,
@@ -63,7 +65,7 @@ fun ViewMachineItem(
                 val (PriceTitle, PriceType, Price) = createRefs()
 
                 Text(
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colorScheme.primary,
                     text = number_machine.toString(),
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
@@ -77,7 +79,7 @@ fun ViewMachineItem(
                 )
 
                 Text(
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colorScheme.primary,
                     text = if(type_machine == true) "Dryer" else "Washer",
                     fontWeight = FontWeight.Normal,
                     fontSize = 12.sp,
@@ -91,7 +93,7 @@ fun ViewMachineItem(
                 )
 
                 Text(
-                    color = MaterialTheme.colors.primary,
+                    color = MaterialTheme.colorScheme.primary,
                     text = if (class_machine == true) "Titan" else "Giant",
                     fontWeight = FontWeight.Bold,
                     fontSize = 12.sp,
