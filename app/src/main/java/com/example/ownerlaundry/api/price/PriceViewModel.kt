@@ -6,11 +6,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.example.ownerlaundry.IS_DIALOG_OPEN
+import com.example.ownerlaundry.MENU_ID
 import com.example.ownerlaundry.STORE_ID
 import com.example.ownerlaundry.api.machine.MachineApp
 import com.example.ownerlaundry.api.machine.MachineModel
 import com.example.ownerlaundry.api.menu.MenuApp
 import com.example.ownerlaundry.api.menu.MenuModel
+import com.example.ownerlaundry.api.menu.MenuViewModel
 import com.example.ownerlaundry.navigation.Screens
 import retrofit2.Call
 import retrofit2.Callback
@@ -95,6 +98,7 @@ class PriceViewModel: ViewModel() {
                                 inclusive = true
                             }
                         }
+                        IS_DIALOG_OPEN.value = false
                     }
                     if(response.code() == 400){
                         statePrice = 4
@@ -152,6 +156,7 @@ class PriceViewModel: ViewModel() {
                                 inclusive = true
                             }
                         }
+                        IS_DIALOG_OPEN.value = false
                     }
                 }
 
@@ -182,6 +187,7 @@ class PriceViewModel: ViewModel() {
                                 inclusive = true
                             }
                         }
+                        IS_DIALOG_OPEN.value = false
                     }
                 }
 
@@ -189,6 +195,77 @@ class PriceViewModel: ViewModel() {
                     Log.d("error", t.message.toString())
                     if (t.message == t.message){
 //                        Toast.makeText(requireContext(), "Tidak ada koneksi Internet" , Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        }
+        catch (e : Exception){
+            errorMessage = e.message.toString()
+            Log.d("debug", "ERROR $errorMessage")
+//            Toast.makeText(requireContext(), "Error $e" , Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun deletePriceInMenu(idPrice: String){
+        try {
+            PriceApp.CreateInstance().deletePrice(id = idPrice).enqueue(object :
+                Callback<PriceInsertModel> {
+                override fun onResponse(call: Call<PriceInsertModel>, response: Response<PriceInsertModel>) {
+                    Log.d("debug", "Code Delete ${response.code()}")
+                    if(response.code() != 200){
+                        deletePriceInMenu(idPrice = idPrice)
+                    }
+                }
+
+                override fun onFailure(call: Call<PriceInsertModel>, t: Throwable) {
+                    Log.d("error", t.message.toString())
+                    if (t.message == t.message){
+//                        Toast.makeText(requireContext(), "Tidak ada koneksi Internet" , Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        }
+        catch (e : Exception){
+            errorMessage = e.message.toString()
+            Log.d("debug", "ERROR $errorMessage")
+//            Toast.makeText(requireContext(), "Error $e" , Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun getIDPrice(navController: NavController, menuViewModel: MenuViewModel){
+        try {
+            PriceApp.CreateInstance().fetchIdPrice(lookup = "*", menu = MENU_ID).enqueue(object :
+                Callback<ArrayList<PriceModel>> {
+                override fun onResponse(call: Call<ArrayList<PriceModel>>, response: Response<ArrayList<PriceModel>>) {
+//                    Log.d("debug", "url : ${response}")
+//                    Log.d("debug", "Code : ${response.code().toString()}")
+                    statePrice = 0
+                    if(response.code() == 200){
+                        response.body()?.let {
+                            priceListResponse = response.body()!!
+                            if (!priceListResponse.isNullOrEmpty()){
+                                for (item in priceListResponse){
+                                    Log.d("debug", "Price Response : ${item}")
+                                    deletePriceInMenu(idPrice = item.id!!)
+                                }
+                                menuViewModel.deleteMenu(idMenu = MENU_ID, navController = navController)
+                            }
+//                            Log.d("debug", "Code : ${response.code().toString()}")
+//                            Log.d("debug", "Price Response : ${priceListResponse.size}")
+                            statePrice = 1
+                        }
+                        if (priceListResponse.isNullOrEmpty()){
+                            statePrice = 3
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<PriceModel>>, t: Throwable) {
+                    Log.d("debug", "Fail get Data ${t.message.toString()}")
+                    if (t.message == t.message){
+                        Log.d("debug", "Failed")
+                        statePrice = 2
+//                        Toast.makeText(requireContext(), "Failed connect to server" , Toast.LENGTH_SHORT).show()
                     }
                 }
             })

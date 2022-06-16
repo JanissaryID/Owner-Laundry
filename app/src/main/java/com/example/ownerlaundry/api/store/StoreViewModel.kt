@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.example.ownerlaundry.IS_DIALOG_OPEN
 import com.example.ownerlaundry.api.machine.MachineApp
 import com.example.ownerlaundry.api.machine.MachineModel
 import com.example.ownerlaundry.navigation.Screens
@@ -84,6 +85,7 @@ class StoreViewModel: ViewModel() {
                                 inclusive = true
                             }
                         }
+                        IS_DIALOG_OPEN.value = false
                     }
                     if(response.code() == 400){
                         stateStore = 4
@@ -132,6 +134,7 @@ class StoreViewModel: ViewModel() {
                                 inclusive = true
                             }
                         }
+                        IS_DIALOG_OPEN.value = false
                     }
                     if(response.code() == 400){
                         stateStore = 4

@@ -11,6 +11,12 @@ interface PriceService {
         @Query(value="price_store", encoded=true) store: String?,
     ): Call<ArrayList<PriceModel>>
 
+    @GET("Price")
+    fun fetchIdPrice(
+        @Query(value = "\$lookup", encoded = true) lookup: String,
+        @Query(value = "Menu[0]", encoded = true) menu: String?,
+    ): Call<ArrayList<PriceModel>>
+
     @POST("Price")
     fun insertPrice(@Body statusData: PriceInsertModel): Call<PriceInsertModel>
 

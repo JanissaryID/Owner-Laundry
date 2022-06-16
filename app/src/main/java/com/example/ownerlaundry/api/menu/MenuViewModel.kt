@@ -6,9 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.example.ownerlaundry.KEY_URL
-import com.example.ownerlaundry.QRIS_DATA
-import com.example.ownerlaundry.STORE_ID
+import com.example.ownerlaundry.*
 import com.example.ownerlaundry.api.qris.QrisApp
 import com.example.ownerlaundry.api.qris.QrisModel
 import com.example.ownerlaundry.api.store.StoreApp
@@ -89,6 +87,7 @@ class MenuViewModel: ViewModel() {
                                 inclusive = true
                             }
                         }
+                        IS_DIALOG_OPEN.value = false
                     }
                     if(response.code() == 400){
                         stateMenu = 4
@@ -137,6 +136,7 @@ class MenuViewModel: ViewModel() {
                                 inclusive = true
                             }
                         }
+                        IS_DIALOG_OPEN.value = false
                     }
                 }
 
@@ -167,6 +167,7 @@ class MenuViewModel: ViewModel() {
                                 inclusive = true
                             }
                         }
+                        IS_DIALOG_OPEN.value = false
                     }
                 }
 

@@ -59,6 +59,8 @@ var MACHINE_NUMBER: Int by mutableStateOf(0)
 //Page Screen Variable
 var PAGE_SCREEN: String by mutableStateOf("")
 
+//var PROGRESS_DELETE: Boolean by mutableStateOf(false)
+
 //Setting Variable
 //var STORE_NAME_ADD by mutableStateOf(TextFieldValue(""))
 //var STORE_ADDRESS_ADD by mutableStateOf(TextFieldValue(""))

@@ -80,7 +80,9 @@ fun ViewTopBarEdit(
                             Toast.makeText(context, "Only Add Menu", Toast.LENGTH_SHORT).show()
                         }
                         else{
-                            menuViewModel.deleteMenu(idMenu = MENU_ID, navController = navController)
+                            IS_DIALOG_OPEN.value = true
+                            priceViewModel.getIDPrice(navController = navController, menuViewModel = menuViewModel)
+//                            menuViewModel.deleteMenu(idMenu = MENU_ID, navController = navController)
                         }
                     }
                     else if(PAGE_SCREEN == "add_price_screen"){
@@ -88,6 +90,7 @@ fun ViewTopBarEdit(
                             Toast.makeText(context, "Only Add Price", Toast.LENGTH_SHORT).show()
                         }
                         else{
+                            IS_DIALOG_OPEN.value = true
                             priceViewModel.deletePrice(idPrice = PRICE_ID, navController = navController)
                         }
                     }
@@ -96,6 +99,7 @@ fun ViewTopBarEdit(
                             Toast.makeText(context, "Only Add Machine", Toast.LENGTH_SHORT).show()
                         }
                         else{
+                            IS_DIALOG_OPEN.value = true
                             machineViewModel.deleteMachine(idMachine = MACHINE_ID, navController = navController)
                         }
                     }

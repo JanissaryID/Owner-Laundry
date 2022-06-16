@@ -32,6 +32,7 @@ import com.example.ownerlaundry.api.menu.MenuViewModel
 import com.example.ownerlaundry.api.price.PriceViewModel
 import com.example.ownerlaundry.component.ButtonView
 import com.example.ownerlaundry.component.ViewButtonMenu
+import com.example.ownerlaundry.component.view.ViewDialogLoading
 import com.example.ownerlaundry.component.view.ViewTopBarEdit
 import com.example.ownerlaundry.navigation.Screens
 
@@ -282,6 +283,7 @@ fun WallPriceAddEdit(
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         }, button_enable){
+            IS_DIALOG_OPEN.value = true
 //            Log.d("debug", "dryer $button_dryer_menu packet $button_packet_menu")
             if (PRICE_EDIT){
 //                Toast.makeText(context, "Edit Save Price", Toast.LENGTH_SHORT).show()
@@ -317,6 +319,9 @@ fun WallPriceAddEdit(
         }
         if(menuViewModel.stateMenu == 4){
             Toast.makeText(context, "Try Again", Toast.LENGTH_SHORT).show()
+        }
+        if (IS_DIALOG_OPEN.value){
+            ViewDialogLoading()
         }
     }
 }

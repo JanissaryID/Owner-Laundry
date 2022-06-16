@@ -3,12 +3,14 @@ package com.example.ownerlaundry.screens
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
@@ -20,6 +22,7 @@ import com.example.ownerlaundry.api.menu.MenuViewModel
 import com.example.ownerlaundry.api.store.StoreViewModel
 import com.example.ownerlaundry.component.ButtonRadio
 import com.example.ownerlaundry.component.ButtonView
+import com.example.ownerlaundry.component.view.ViewDialogLoading
 import com.example.ownerlaundry.component.view.ViewTopBar
 import com.example.ownerlaundry.component.view.ViewTopBarEdit
 import com.example.ownerlaundry.navigation.Screens
@@ -149,6 +152,7 @@ fun WallMenuPriceAddEdit(
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         }, button_enable){
+            IS_DIALOG_OPEN.value = true
             Log.d("debug", "dryer $button_dryer_menu packet $button_packet_menu")
             if (MENU_EDIT){
 //                Toast.makeText(context, "Edit Save Menu", Toast.LENGTH_SHORT).show()
@@ -174,8 +178,13 @@ fun WallMenuPriceAddEdit(
                 )
             }
         }
+
         if(menuViewModel.stateMenu == 4){
             Toast.makeText(context, "Try Again", Toast.LENGTH_SHORT).show()
+        }
+
+        if (IS_DIALOG_OPEN.value){
+            ViewDialogLoading()
         }
     }
 }

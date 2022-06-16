@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.example.ownerlaundry.IS_DIALOG_OPEN
 import com.example.ownerlaundry.KEY_URL
 import com.example.ownerlaundry.QRIS_DATA
 import com.example.ownerlaundry.STORE_ID
@@ -80,6 +81,7 @@ class QrisViewModel: ViewModel() {
                                 inclusive = true
                             }
                         }
+                        IS_DIALOG_OPEN.value = false
                     }
                     if(response.code() == 400){
                         stateQris = 4
@@ -128,6 +130,7 @@ class QrisViewModel: ViewModel() {
                                 inclusive = true
                             }
                         }
+                        IS_DIALOG_OPEN.value = false
                     }
                     if(response.code() == 400){
                         stateQris = 4

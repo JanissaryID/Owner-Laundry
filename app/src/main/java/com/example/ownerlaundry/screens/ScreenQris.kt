@@ -15,10 +15,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import com.example.ownerlaundry.IS_DIALOG_OPEN
 import com.example.ownerlaundry.QRIS_DATA
 import com.example.ownerlaundry.TITLE_SCREEN
 import com.example.ownerlaundry.api.qris.QrisViewModel
 import com.example.ownerlaundry.component.ButtonView
+import com.example.ownerlaundry.component.view.ViewDialogLoading
 import com.example.ownerlaundry.component.view.ViewTopBar
 import com.example.ownerlaundry.navigation.Screens
 
@@ -156,6 +158,7 @@ fun WallAddQris(
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         }, button_enable){
+            IS_DIALOG_OPEN.value = true
             button_clicked = true
             button_enable = false
             if (QRIS_DATA.isNullOrEmpty()){
@@ -182,6 +185,9 @@ fun WallAddQris(
         }
         if(qrisViewModel.stateQris == 4){
             Toast.makeText(context, "Try Again", Toast.LENGTH_SHORT).show()
+        }
+        if (IS_DIALOG_OPEN.value){
+            ViewDialogLoading()
         }
     }
 }

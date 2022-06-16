@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import com.example.ownerlaundry.*
 import com.example.ownerlaundry.api.store.StoreViewModel
 import com.example.ownerlaundry.component.ButtonView
+import com.example.ownerlaundry.component.view.ViewDialogLoading
 import com.example.ownerlaundry.component.view.ViewTopBar
 import com.example.ownerlaundry.navigation.Screens
 
@@ -158,6 +159,7 @@ fun WallAddStore(
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         }, button_enable){
+            IS_DIALOG_OPEN.value = true
             if (STORE_EDIT){
                 button_clicked = true
                 button_enable = false
@@ -188,6 +190,9 @@ fun WallAddStore(
         }
         if(storeViewModel.stateStore == 4){
             Toast.makeText(context, "Try Again", Toast.LENGTH_SHORT).show()
+        }
+        if (IS_DIALOG_OPEN.value){
+            ViewDialogLoading()
         }
     }
 }
