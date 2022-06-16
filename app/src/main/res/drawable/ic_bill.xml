@@ -25,13 +25,7 @@
       android:strokeColor="#474FFF"
       android:strokeLineCap="round"/>
   <path
-      android:pathData="M35.57,85.37L67.72,85.37"
-      android:strokeWidth="5"
-      android:fillColor="#00000000"
-      android:strokeColor="#474FFF"
-      android:strokeLineCap="round"/>
-  <path
-      android:pathData="M44.86,71.86L68.57,71.86"
+      android:pathData="M35.57,84.37L67.72,84.37"
       android:strokeWidth="5"
       android:fillColor="#00000000"
       android:strokeColor="#474FFF"
@@ -43,25 +37,19 @@
       android:strokeColor="#474FFF"
       android:strokeLineCap="round"/>
   <path
-      android:pathData="M35.57,78.61L49.99,78.61"
+      android:pathData="M35.57,74.61L49.99,74.61"
       android:strokeWidth="5"
       android:fillColor="#00000000"
       android:strokeColor="#474FFF"
       android:strokeLineCap="round"/>
   <path
-      android:pathData="M35.57,71.86L38.17,71.86"
+      android:pathData="M56.68,74.61L59.28,74.61"
       android:strokeWidth="5"
       android:fillColor="#00000000"
       android:strokeColor="#474FFF"
       android:strokeLineCap="round"/>
   <path
-      android:pathData="M56.68,78.61L59.28,78.61"
-      android:strokeWidth="5"
-      android:fillColor="#00000000"
-      android:strokeColor="#474FFF"
-      android:strokeLineCap="round"/>
-  <path
-      android:pathData="M65.12,78.61L67.72,78.61"
+      android:pathData="M65.12,74.61L67.72,74.61"
       android:strokeWidth="5"
       android:fillColor="#00000000"
       android:strokeColor="#474FFF"

@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -83,9 +84,10 @@ fun MenuLoadData(
 
                     val (StoreImage, TextEmpty) = createRefs()
 
-                    Image(painter = painterResource(
-                        id = R.drawable.ic_menu),
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_menu),
                         contentDescription = "Menu Image Empty",
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
                             .wrapContentHeight()
                             .size(200.dp)
