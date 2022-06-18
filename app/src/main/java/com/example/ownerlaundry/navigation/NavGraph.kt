@@ -83,7 +83,9 @@ fun NavGraphSetup(
             route = Screens.Qris.route,
         ){
             LaunchedEffect(key1 = STORE_ID){
-                qrisViewModel.getQris()
+                qrisViewModel.qrisListResponse.clear()
+                QRIS_DATA.clear()
+                qrisViewModel.getQris(navController = navController, deleteAll = false)
 //                Log.d("debug", "Store ID : ${STORE_ID}")
             }
             ScreenQris(

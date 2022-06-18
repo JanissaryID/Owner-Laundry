@@ -34,6 +34,8 @@ fun ScreenMachineAddEdit(
 ) {
     val context = LocalContext.current
 
+    PAGE_SCREEN = "add_machine_screen"
+
     Scaffold(
         topBar = { ViewTopBarEdit(
             navController = navController,

@@ -21,6 +21,8 @@ var STORE_PASSWORD: String by mutableStateOf("")
 var STORE_EDIT: Boolean by mutableStateOf(false)
 
 //Qris Variable
+var QRIS_EDIT: Boolean by mutableStateOf(false)
+var QRIS_ID: String by mutableStateOf("")
 var QRIS_DATA: ArrayList<QrisModel> by mutableStateOf(arrayListOf())
 
 //Menu Price Variable

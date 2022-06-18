@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.ownerlaundry.IS_DIALOG_OPEN
+import com.example.ownerlaundry.STORE_ID
 import com.example.ownerlaundry.api.machine.MachineApp
 import com.example.ownerlaundry.api.machine.MachineModel
 import com.example.ownerlaundry.navigation.Screens
@@ -25,7 +26,7 @@ class StoreViewModel: ViewModel() {
             StoreApp.CreateInstance().fetchStore().enqueue(object :
                 Callback<List<StoreModel>> {
                 override fun onResponse(call: Call<List<StoreModel>>, response: Response<List<StoreModel>>) {
-                    Log.d("debug", "Store response : ${response}")
+//                    Log.d("debug", "Store response : ${response}")
 //                    Log.d("debug", "Code : ${response.code().toString()}")
                     stateStore = 0
                     if(response.code() == 200){
@@ -58,6 +59,46 @@ class StoreViewModel: ViewModel() {
 //            Toast.makeText(requireContext(), "Error $e" , Toast.LENGTH_SHORT).show()
         }
     }
+
+//    fun getStoreByID(){
+//        try {
+//            StoreApp.CreateInstance().getStore(id = STORE_ID).enqueue(object :
+//                Callback<StoreModel> {
+//                override fun onResponse(call: Call<StoreModel>, response: Response<StoreModel>) {
+//                    Log.d("debug", "Store response : ${response}")
+////                    Log.d("debug", "Code : ${response.code().toString()}")
+//                    stateStore = 0
+//                    if(response.code() == 200){
+//                        response.body()?.let {
+//                            val dataStore = response.body()!!
+////                            storeListResponse = response.body()!!
+////                            MACHINE_DATA = machineListResponse
+////                            Log.d("debug", "Code : ${response.code().toString()}")
+////                            Log.d("debug", "Code : ${storeListResponse}")
+//                            stateStore = 1
+//                        }
+//                        if (storeListResponse.isNullOrEmpty()){
+//                            stateStore = 3
+//                        }
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<StoreModel>, t: Throwable) {
+//                    Log.d("debug", "Fail get Data ${t.message.toString()}")
+//                    if (t.message == t.message){
+//                        Log.d("debug", "Failed")
+//                        stateStore = 2
+////                        Toast.makeText(requireContext(), "Failed connect to server" , Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            })
+//        }
+//        catch (e : Exception){
+//            errorMessage = e.message.toString()
+//            Log.d("debug", "ERROR $errorMessage")
+////            Toast.makeText(requireContext(), "Error $e" , Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
     fun insertStore(
         name: String,
@@ -129,7 +170,7 @@ class StoreViewModel: ViewModel() {
                 override fun onResponse(call: Call<StoreModel>, response: Response<StoreModel>) {
                     Log.d("debug", "Code Update ${response.code()}")
                     if(response.code() == 200){
-                        navController.navigate(route = Screens.Menu.route){
+                        navController.navigate(route = Screens.Home.route){
                             popUpTo(Screens.Menu.route) {
                                 inclusive = true
                             }
@@ -138,6 +179,37 @@ class StoreViewModel: ViewModel() {
                     }
                     if(response.code() == 400){
                         stateStore = 4
+                    }
+                }
+
+                override fun onFailure(call: Call<StoreModel>, t: Throwable) {
+                    Log.d("error", t.message.toString())
+                    if (t.message == t.message){
+//                        Toast.makeText(requireContext(), "Tidak ada koneksi Internet" , Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        }
+        catch (e : Exception){
+            errorMessage = e.message.toString()
+            Log.d("debug", "ERROR $errorMessage")
+//            Toast.makeText(requireContext(), "Error $e" , Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun deleteStore(idStore: String, navController: NavController){
+        try {
+            StoreApp.CreateInstance().deleteStore(id = idStore).enqueue(object :
+                Callback<StoreModel> {
+                override fun onResponse(call: Call<StoreModel>, response: Response<StoreModel>) {
+                    Log.d("debug", "Code Update ${response.code()}")
+                    if(response.code() == 200){
+                        navController.navigate(route = Screens.Home.route){
+                            popUpTo(Screens.Home.route) {
+                                inclusive = true
+                            }
+                        }
+                        IS_DIALOG_OPEN.value = false
                     }
                 }
 

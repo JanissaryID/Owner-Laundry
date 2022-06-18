@@ -121,6 +121,8 @@ fun WallMenu(
                     Card(
                         modifier = Modifier.padding(5.dp).clickable {
                             navController.navigate(route = Screens.Qris.route)
+                            PAGE_SCREEN = "qris_screen"
+                            QRIS_EDIT = true
 //                            Toast.makeText(context, "Clicked Qris", Toast.LENGTH_SHORT).show()
                         },
                         shape = RoundedCornerShape(17.dp)

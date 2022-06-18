@@ -20,6 +20,8 @@ import com.example.ownerlaundry.R
 import com.example.ownerlaundry.api.machine.MachineViewModel
 import com.example.ownerlaundry.api.menu.MenuViewModel
 import com.example.ownerlaundry.api.price.PriceViewModel
+import com.example.ownerlaundry.api.qris.QrisViewModel
+import com.example.ownerlaundry.api.store.StoreViewModel
 import com.example.ownerlaundry.excel.ExcelViewModel
 import com.example.ownerlaundry.navigation.Screens
 
@@ -30,7 +32,9 @@ fun ViewTopBarEdit(
     screenBack: String,
     machineViewModel: MachineViewModel = MachineViewModel(),
     priceViewModel: PriceViewModel = PriceViewModel(),
-    menuViewModel: MenuViewModel = MenuViewModel()
+    menuViewModel: MenuViewModel = MenuViewModel(),
+    qrisViewModel: QrisViewModel = QrisViewModel(),
+    storeViewModel: StoreViewModel = StoreViewModel()
 ) {
 
     val context = LocalContext.current
@@ -73,34 +77,52 @@ fun ViewTopBarEdit(
         actions = {
             IconButton(
                 onClick = {
-//                    IS_DIALOG_OPEN.value = true
-//                    navController.navigate(route = Screens.Setting.route)
-                    if(PAGE_SCREEN == "add_menu_price_screen"){
-                        if(!MENU_EDIT){
-                            Toast.makeText(context, "Only Add Menu", Toast.LENGTH_SHORT).show()
-                        }
-                        else{
-                            IS_DIALOG_OPEN.value = true
-                            priceViewModel.getIDPrice(navController = navController, menuViewModel = menuViewModel)
+                    when(PAGE_SCREEN){
+                        "add_menu_price_screen" -> {
+                            if(!MENU_EDIT){
+                                Toast.makeText(context, "Only Add Menu", Toast.LENGTH_SHORT).show()
+                            }
+                            else{
+                                IS_DIALOG_OPEN.value = true
+                                priceViewModel.getIDPrice(navController = navController)
 //                            menuViewModel.deleteMenu(idMenu = MENU_ID, navController = navController)
+                            }
                         }
-                    }
-                    else if(PAGE_SCREEN == "add_price_screen"){
-                        if(!PRICE_EDIT){
-                            Toast.makeText(context, "Only Add Price", Toast.LENGTH_SHORT).show()
+                        "add_price_screen" -> {
+                            if(!PRICE_EDIT){
+                                Toast.makeText(context, "Only Add Price", Toast.LENGTH_SHORT).show()
+                            }
+                            else{
+                                IS_DIALOG_OPEN.value = true
+                                priceViewModel.deletePrice(idPrice = PRICE_ID, navController = navController)
+                            }
                         }
-                        else{
-                            IS_DIALOG_OPEN.value = true
-                            priceViewModel.deletePrice(idPrice = PRICE_ID, navController = navController)
+                        "add_machine_screen" -> {
+                            if(!MACHINE_EDIT){
+                                Toast.makeText(context, "Only Add Machine", Toast.LENGTH_SHORT).show()
+                            }
+                            else{
+                                IS_DIALOG_OPEN.value = true
+                                machineViewModel.deleteMachine(idMachine = MACHINE_ID, navController = navController)
+                            }
                         }
-                    }
-                    else if(PAGE_SCREEN == "add_machine_screen"){
-                        if(!MACHINE_EDIT){
-                            Toast.makeText(context, "Only Add Machine", Toast.LENGTH_SHORT).show()
+                        "qris_screen" -> {
+                            if(!QRIS_EDIT){
+                                Toast.makeText(context, "Only Add Qris", Toast.LENGTH_SHORT).show()
+                            }
+                            else{
+                                IS_DIALOG_OPEN.value = true
+                                qrisViewModel.deleteQris(idQris = QRIS_ID, navController = navController, deleteAll = false)
+                            }
                         }
-                        else{
-                            IS_DIALOG_OPEN.value = true
-                            machineViewModel.deleteMachine(idMachine = MACHINE_ID, navController = navController)
+                        "add_store_screen" -> {
+                            if(!STORE_EDIT){
+                                Toast.makeText(context, "Only Add Store", Toast.LENGTH_SHORT).show()
+                            }
+                            else{
+                                IS_DIALOG_OPEN.value = true
+                                machineViewModel.getIDMachine(navController = navController)
+                            }
                         }
                     }
                 }) {

@@ -6,10 +6,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.example.ownerlaundry.IS_DIALOG_OPEN
-import com.example.ownerlaundry.KEY_URL
-import com.example.ownerlaundry.QRIS_DATA
-import com.example.ownerlaundry.STORE_ID
+import com.example.ownerlaundry.*
+import com.example.ownerlaundry.api.machine.MachineApp
+import com.example.ownerlaundry.api.machine.MachineModel
+import com.example.ownerlaundry.api.menu.MenuViewModel
 import com.example.ownerlaundry.api.store.StoreApp
 import com.example.ownerlaundry.api.store.StoreModel
 import com.example.ownerlaundry.navigation.Screens
@@ -23,8 +23,9 @@ class QrisViewModel: ViewModel() {
     var qrisListResponse:ArrayList<QrisModel> by mutableStateOf(arrayListOf())
     var stateQris: Int by mutableStateOf(0)
     var errorMessage: String by mutableStateOf("")
+    var deleteAllQris: Boolean by mutableStateOf(false)
 
-    fun getQris(){
+    fun getQris(navController: NavController, deleteAll: Boolean){
         qrisListResponse.clear()
         try {
             var viewModelJob = Job()
@@ -37,10 +38,26 @@ class QrisViewModel: ViewModel() {
                             var response = QrisApp.CreateInstance().fetchQris(
                                 store = STORE_ID
                             ).execute()
+//                            Log.d("debug", "Get Qris : ${response}")
                             if(response.code() == 200) {
                                 response.body()?.let {
                                     qrisListResponse = response.body()!!
                                     QRIS_DATA = qrisListResponse
+                                    if (!qrisListResponse.isNullOrEmpty()){
+                                        QRIS_ID = response.body()!![0].id.toString()
+//                                        Log.d("debug", "Get Qris ID : ${QRIS_ID}")
+                                        if (deleteAll){
+                                            deleteQris(idQris = QRIS_ID, navController = navController, deleteAll = deleteAll)
+                                        }
+                                    }
+                                    else{
+                                        QRIS_EDIT = false
+                                        if (deleteAll){
+                                            QRIS_EDIT = false
+                                            deleteAllQris = true
+                                            moveDeleteMenu(navController = navController)
+                                        }
+                                    }
                                 }
                             }
                             break
@@ -73,11 +90,11 @@ class QrisViewModel: ViewModel() {
                 Callback<QrisModel> {
                 override fun onResponse(call: Call<QrisModel>, response: Response<QrisModel>) {
 //                    Log.d("debug", "url : ${response}")
-                    Log.d("debug", "Code : ${response.code().toString()}")
+//                    Log.d("debug", "Code : ${response.code().toString()}")
                     stateQris = 0
                     if(response.code() == 201){
                         navController.navigate(route = Screens.Menu.route){
-                            popUpTo(Screens.Home.route) {
+                            popUpTo(Screens.Menu.route) {
                                 inclusive = true
                             }
                         }
@@ -122,11 +139,11 @@ class QrisViewModel: ViewModel() {
                 Callback<QrisModel> {
                 override fun onResponse(call: Call<QrisModel>, response: Response<QrisModel>) {
 //                    Log.d("debug", "url : ${response}")
-                    Log.d("debug", "Code : ${response.code().toString()}")
+//                    Log.d("debug", "Code : ${response.code().toString()}")
                     stateQris = 0
                     if(response.code() == 200){
                         navController.navigate(route = Screens.Menu.route){
-                            popUpTo(Screens.Home.route) {
+                            popUpTo(Screens.Menu.route) {
                                 inclusive = true
                             }
                         }
@@ -151,6 +168,53 @@ class QrisViewModel: ViewModel() {
             errorMessage = e.message.toString()
             Log.d("debug", "ERROR $errorMessage")
 //            Toast.makeText(requireContext(), "Error $e" , Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun deleteQris(idQris: String, navController: NavController, deleteAll: Boolean){
+        try {
+            QrisApp.CreateInstance().deleteQris(id = idQris).enqueue(object :
+                Callback<QrisModel> {
+                override fun onResponse(call: Call<QrisModel>, response: Response<QrisModel>) {
+//                    Log.d("debug", "Code Update ${response.code()}")
+//                    Log.d("debug", "Response Qris ${response}")
+                    if(response.code() == 200){
+                        if (!deleteAll){
+                            qrisListResponse.clear()
+                            QRIS_DATA.clear()
+                            navController.navigate(route = Screens.Menu.route){
+                                popUpTo(Screens.Menu.route) {
+                                    inclusive = true
+                                }
+                            }
+                            IS_DIALOG_OPEN.value = false
+                        }
+                        else{
+                            deleteAllQris = true
+                            moveDeleteMenu(navController = navController)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<QrisModel>, t: Throwable) {
+                    Log.d("error", t.message.toString())
+                    if (t.message == t.message){
+//                        Toast.makeText(requireContext(), "Tidak ada koneksi Internet" , Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        }
+        catch (e : Exception){
+            errorMessage = e.message.toString()
+            Log.d("debug", "ERROR $errorMessage")
+//            Toast.makeText(requireContext(), "Error $e" , Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun moveDeleteMenu(menuViewModel: MenuViewModel = MenuViewModel(), navController: NavController){
+        if(deleteAllQris){
+            Log.d("debug", "Delete Qris Success, then move to delete Menu")
+            menuViewModel.getIDMenu(navController = navController)
         }
     }
 }

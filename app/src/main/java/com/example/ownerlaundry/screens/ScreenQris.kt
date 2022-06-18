@@ -15,13 +15,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
-import com.example.ownerlaundry.IS_DIALOG_OPEN
-import com.example.ownerlaundry.QRIS_DATA
-import com.example.ownerlaundry.TITLE_SCREEN
+import com.example.ownerlaundry.*
 import com.example.ownerlaundry.api.qris.QrisViewModel
 import com.example.ownerlaundry.component.ButtonView
 import com.example.ownerlaundry.component.view.ViewDialogLoading
 import com.example.ownerlaundry.component.view.ViewTopBar
+import com.example.ownerlaundry.component.view.ViewTopBarEdit
 import com.example.ownerlaundry.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,8 +31,10 @@ fun ScreenQris(
 ) {
     val context = LocalContext.current
 
+    PAGE_SCREEN = "qris_screen"
+
     Scaffold(
-        topBar = { ViewTopBar(
+        topBar = { ViewTopBarEdit(
             navController = navController,
             title = TITLE_SCREEN[2],
             screenBack = Screens.Menu.route
@@ -42,19 +43,14 @@ fun ScreenQris(
         WallAddQris(
             qrisViewModel = qrisViewModel,
             navController = navController,
-//            priceViewModel = priceViewModel,
-//            machineViewModel = machineViewModel
         )
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WallAddQris(
     qrisViewModel: QrisViewModel,
     navController: NavController,
-//    priceViewModel: PriceViewModel,
-//    machineViewModel: MachineViewModel
 ) {
     val dataName = listOf(
         "Client Key",
@@ -71,13 +67,14 @@ fun WallAddQris(
     var text_client_key by remember { mutableStateOf(TextFieldValue("")) }
     var text_client_id by remember { mutableStateOf(TextFieldValue("")) }
     var text_merchant_id by remember { mutableStateOf(TextFieldValue("")) }
-    var idQris by remember { mutableStateOf("") }
+//    var idQris by remember { mutableStateOf("") }
 
     if (!QRIS_DATA.isNullOrEmpty()){
         text_client_key = TextFieldValue(QRIS_DATA[0].clientKey.toString())
         text_client_id = TextFieldValue(QRIS_DATA[0].clientId.toString())
         text_merchant_id = TextFieldValue(QRIS_DATA[0].merchantId.toString())
-        idQris = QRIS_DATA[0].id.toString()
+        QRIS_ID = QRIS_DATA[0].id.toString()
+//        idQris = QRIS_DATA[0].id.toString()
     }
 
     ConstraintLayout(modifier = Modifier
@@ -85,8 +82,7 @@ fun WallAddQris(
         .fillMaxSize()
     ) {
 
-//        val content = createRef()
-        val (TextName, TextAddress, TextCity, TextPassword, buttonAddStore) = createRefs()
+        val (TextName, TextAddress, TextCity, buttonAddStore) = createRefs()
         val modifier = Modifier
 
         OutlinedTextField(
@@ -177,7 +173,7 @@ fun WallAddQris(
                     clientkey = text_client_key.text,
                     clientID = text_client_id.text,
                     merchantID = text_merchant_id.text,
-                    idQris = idQris,
+                    idQris = QRIS_ID,
                     navController = navController
                 )
 //                Toast.makeText(context, "Data Found", Toast.LENGTH_SHORT).show()

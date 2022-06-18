@@ -19,6 +19,7 @@ import com.example.ownerlaundry.api.store.StoreViewModel
 import com.example.ownerlaundry.component.ButtonView
 import com.example.ownerlaundry.component.view.ViewDialogLoading
 import com.example.ownerlaundry.component.view.ViewTopBar
+import com.example.ownerlaundry.component.view.ViewTopBarEdit
 import com.example.ownerlaundry.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,8 +31,10 @@ fun ScreenAddStore(
 ) {
     val context = LocalContext.current
 
+    PAGE_SCREEN = "add_store_screen"
+
     Scaffold(
-        topBar = { ViewTopBar(
+        topBar = { ViewTopBarEdit(
             navController = navController,
             title = if(STORE_EDIT) "Edit Store" else "Add Store",
             screenBack = Screens.Home.route,
@@ -172,7 +175,7 @@ fun WallAddStore(
                     storeId = STORE_ID,
                     navController = navController
                 )
-
+//                storeViewModel.getStore()
             }
             else{
                 button_clicked = true

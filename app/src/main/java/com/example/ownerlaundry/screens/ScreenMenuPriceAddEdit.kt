@@ -32,12 +32,10 @@ import com.example.ownerlaundry.navigation.Screens
 fun ScreenMenuPriceAddEdit(
     menuViewModel: MenuViewModel,
     navController: NavController,
-//    priceViewModel: PriceViewModel,
-//    settingViewModel: SettingViewModel,
-//    machineViewModel: MachineViewModel,
-//    transactionViewModel: TransactionViewModel
 ) {
     val context = LocalContext.current
+
+    PAGE_SCREEN = "add_menu_price_screen"
 
     Scaffold(
         topBar = { ViewTopBarEdit(

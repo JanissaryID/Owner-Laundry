@@ -49,6 +49,8 @@ fun ScreenPriceAddEdit(
 ) {
     val context = LocalContext.current
 
+    PAGE_SCREEN = "add_price_screen"
+
     Scaffold(
         topBar = { ViewTopBarEdit(
             navController = navController,

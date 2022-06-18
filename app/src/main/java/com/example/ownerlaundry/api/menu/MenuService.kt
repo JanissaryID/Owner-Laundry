@@ -11,6 +11,12 @@ interface MenuService {
         @Query(value="menu_store", encoded=true) store: String?,
     ): Call<ArrayList<MenuModel>>
 
+    @GET("Menu")
+    fun fetchIdMenu(
+        @Query(value = "\$lookup", encoded = true) lookup: String,
+        @Query(value="menu_store", encoded=true) store: String?
+    ): Call<ArrayList<MenuModel>>
+
     @POST("Menu")
     fun insertMenu(@Body statusData: MenuModel): Call<MenuModel>
 
