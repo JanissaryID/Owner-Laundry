@@ -10,11 +10,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.ownerlaundry.*
+import com.example.ownerlaundry.R
 import com.example.ownerlaundry.api.store.StoreViewModel
 import com.example.ownerlaundry.component.ButtonView
 import com.example.ownerlaundry.component.view.ViewDialogLoading
@@ -36,7 +38,7 @@ fun ScreenAddStore(
     Scaffold(
         topBar = { ViewTopBarEdit(
             navController = navController,
-            title = if(STORE_EDIT) "Edit Store" else "Add Store",
+            title = if(STORE_EDIT) stringResource(R.string.Edit_Store) else stringResource(R.string.Add_Store),
             screenBack = Screens.Home.route,
         ) },
     ){
@@ -54,10 +56,10 @@ fun WallAddStore(
     navController: NavController,
 ) {
     val dataName = listOf(
-        "Store Name",
-        "Store Address",
-        "Store City",
-        "Store Password"
+        stringResource(R.string.Store_Name),
+        stringResource(R.string.Store_Address),
+        stringResource(R.string.Store_City),
+        stringResource(R.string.Store_Password)
     )
     val context = LocalContext.current
 
@@ -157,7 +159,8 @@ fun WallAddStore(
 
         if(text_name.text != "" && text_address.text != "" && text_city.text != "" && text_password.text != "" && !button_clicked) button_enable = true else button_enable = false
 
-        ButtonView(title = if(STORE_EDIT) "Save Edit Store" else "Save Store", modifier.constrainAs(buttonAddStore) {
+        ButtonView(title = if(STORE_EDIT) stringResource(R.string.Save_Edit_Store) else stringResource(
+                    R.string.Save_Store), modifier.constrainAs(buttonAddStore) {
             bottom.linkTo(parent.bottom, 16.dp)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
@@ -192,7 +195,7 @@ fun WallAddStore(
 
         }
         if(storeViewModel.stateStore == 4){
-            Toast.makeText(context, "Try Again", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, stringResource(R.string.Try_Again), Toast.LENGTH_SHORT).show()
         }
         if (IS_DIALOG_OPEN.value){
             ViewDialogLoading()

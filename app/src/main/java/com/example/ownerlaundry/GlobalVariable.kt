@@ -7,7 +7,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import com.example.ownerlaundry.api.qris.QrisModel
 import com.example.ownerlaundry.api.transaction.TransactionModel
 
-val TITLE_SCREEN = listOf("Store", "Add Store", "Qris", "Menu", "Add Menu Price", "Price", "Add Price", "Transaction", "Machine", "Add Machine", "Setting")
+val TITLE_SCREEN = listOf("Store", "Add Store", "Qris", "Menu", "Add Menu Price", "Price", "Add Price", "Transaction")
 
 //Network Variable
 var KEY_URL: String by mutableStateOf("")
@@ -30,6 +30,7 @@ var MENU_ID: String by mutableStateOf("")
 var MENU_TITLE: String by mutableStateOf("")
 var MENU_PACKET: Boolean by mutableStateOf(false)
 var MENU_DRYER: Boolean by mutableStateOf(false)
+var MENU_SERVICE: Boolean by mutableStateOf(false)
 var MENU_EDIT: Boolean by mutableStateOf(false)
 
 //Price Variable

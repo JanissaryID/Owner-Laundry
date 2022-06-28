@@ -11,11 +11,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.ownerlaundry.*
+import com.example.ownerlaundry.R
 import com.example.ownerlaundry.api.qris.QrisViewModel
 import com.example.ownerlaundry.component.ButtonView
 import com.example.ownerlaundry.component.view.ViewDialogLoading
@@ -149,7 +151,7 @@ fun WallAddQris(
             button_enable = false
         }
 
-        ButtonView(title = "Save Qris", modifier.constrainAs(buttonAddStore) {
+        ButtonView(title = stringResource(R.string.Save_Qris), modifier.constrainAs(buttonAddStore) {
             bottom.linkTo(parent.bottom, 16.dp)
             start.linkTo(parent.start)
             end.linkTo(parent.end)

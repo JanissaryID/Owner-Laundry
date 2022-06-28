@@ -11,9 +11,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.ownerlaundry.*
+import com.example.ownerlaundry.R
 import com.example.ownerlaundry.api.price.PriceViewModel
 import com.example.ownerlaundry.component.price.PriceLoadData
 import com.example.ownerlaundry.component.view.ViewTopBar
@@ -31,7 +33,7 @@ fun ScreenPrice(
     Scaffold(
         topBar = { ViewTopBar(
             navController = navController,
-            title = TITLE_SCREEN[5],
+            title = stringResource(R.string.Price),
             screenBack = Screens.Menu.route
         ) },
         floatingActionButton = {

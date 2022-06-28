@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class MenuModel(
 
+	@field:SerializedName("is_service")
+	val isService: Boolean? = null,
+
 	@field:SerializedName("is_packet")
 	val isPacket: Boolean? = null,
 

@@ -12,9 +12,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.ownerlaundry.*
+import com.example.ownerlaundry.R
 import com.example.ownerlaundry.api.store.StoreViewModel
 import com.example.ownerlaundry.component.store.StoreLoadData
 import com.example.ownerlaundry.component.view.ViewTopBarHome
@@ -40,7 +42,7 @@ fun ScreenHome(
     Scaffold(
         topBar = { ViewTopBarHome(
             navController = navController,
-            title = TITLE_SCREEN[0]
+            title = stringResource(R.string.Store)
         ) },
         floatingActionButton = {
             FloatingActionButton(

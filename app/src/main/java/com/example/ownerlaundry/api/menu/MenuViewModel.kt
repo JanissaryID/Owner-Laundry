@@ -71,13 +71,15 @@ class MenuViewModel: ViewModel() {
         name: String,
         is_packet: Boolean,
         is_dryer: Boolean,
+        is_service: Boolean,
         navController: NavController
     ){
         val bodyDataInsert = MenuModel(
             menuStore = STORE_ID,
             priceMenu = name,
             isPacket = is_packet,
-            isDryer = is_dryer
+            isDryer = is_dryer,
+            isService = is_service
         )
         try {
             MenuApp.CreateInstance().insertMenu(statusData = bodyDataInsert).enqueue(object :
@@ -121,13 +123,15 @@ class MenuViewModel: ViewModel() {
         titleMenu: String,
         is_packet: Boolean,
         is_dryer: Boolean,
+        is_service: Boolean,
         navController: NavController
     ){
         val bodyDataUpdate = MenuModel(
             menuStore = STORE_ID,
             priceMenu = titleMenu,
             isPacket = is_packet,
-            isDryer = is_dryer
+            isDryer = is_dryer,
+            isService = is_service
         )
 //        val bodyUpdate = MachineModelUpdate(machineStatus = true, isPacket = isPacket, priceTime = timeMachine)
 

@@ -13,11 +13,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.ownerlaundry.*
+import com.example.ownerlaundry.R
 import com.example.ownerlaundry.api.menu.MenuViewModel
 import com.example.ownerlaundry.api.store.StoreViewModel
 import com.example.ownerlaundry.component.ButtonRadio
@@ -40,7 +42,7 @@ fun ScreenMenuPriceAddEdit(
     Scaffold(
         topBar = { ViewTopBarEdit(
             navController = navController,
-            title = if (MENU_EDIT) "Edit Menu Price" else TITLE_SCREEN[4],
+            title = if (MENU_EDIT) stringResource(R.string.Edit_menu_Price) else stringResource(R.string.Add_menu_price),
             screenBack = Screens.MenuPrice.route,
         ) },
     ){
@@ -62,9 +64,13 @@ fun WallMenuPriceAddEdit(
 //    machineViewModel: MachineViewModel
 ) {
     val dataName = listOf(
-        "Name Menu",
-        "Packet",
-        "Dryer",
+        stringResource(R.string.Name_menu),
+        stringResource(R.string.Paket),
+        stringResource(R.string.Pengering),
+        stringResource(R.string.Service),
+        stringResource(R.string.Not_Packet),
+        stringResource(R.string.Not_Dryer),
+        stringResource(R.string.Not_Service)
     )
     val context = LocalContext.current
 
@@ -76,6 +82,7 @@ fun WallMenuPriceAddEdit(
     var text_name_menu by remember { mutableStateOf(TextFieldValue(MENU_TITLE)) }
     var button_packet_menu by remember { mutableStateOf(MENU_PACKET) }
     var button_dryer_menu by remember { mutableStateOf(MENU_DRYER) }
+    var button_service_menu by remember { mutableStateOf(MENU_SERVICE) }
 
 //    Toast.makeText(context, "Menu Edit $MENU_EDIT $MENU_ID", Toast.LENGTH_SHORT).show()
 
@@ -85,7 +92,7 @@ fun WallMenuPriceAddEdit(
     ) {
 
 //        val content = createRef()
-        val (TextName, buttonPacket, buttonDryer, buttonAddMenu) = createRefs()
+        val (TextName, buttonPacket, buttonDryer, buttonAddMenu, buttonService) = createRefs()
         val modifier = Modifier
 
         OutlinedTextField(
@@ -112,7 +119,7 @@ fun WallMenuPriceAddEdit(
         
         ButtonRadio(
             stateButton = button_packet_menu,
-            title = "Packet",
+            title = if(!button_packet_menu) dataName[1] else dataName[4],
             color = MaterialTheme.colorScheme.surface,
             modifier = modifier.constrainAs(buttonPacket) {
                 top.linkTo(TextName.bottom, 16.dp)
@@ -126,7 +133,7 @@ fun WallMenuPriceAddEdit(
 
         ButtonRadio(
             stateButton = button_dryer_menu,
-            title = "Dryer",
+            title = if(!button_dryer_menu) dataName[2] else dataName[5],
             color = MaterialTheme.colorScheme.surface,
             modifier = modifier.constrainAs(buttonDryer) {
                 top.linkTo(buttonPacket.bottom)
@@ -138,6 +145,20 @@ fun WallMenuPriceAddEdit(
 //            Log.d("debug", "dryer $button_dryer_menu")
         }
 
+        ButtonRadio(
+            stateButton = button_service_menu,
+            title = if(!button_service_menu) dataName[3] else dataName[6],
+            color = MaterialTheme.colorScheme.surface,
+            modifier = modifier.constrainAs(buttonService) {
+                top.linkTo(buttonDryer.bottom)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+            }
+        ){
+            button_service_menu = it
+//            Log.d("debug", "dryer $button_dryer_menu")
+        }
+
         if(text_name_menu.text != "" && !button_clicked){
             button_enable = true
         }
@@ -145,7 +166,8 @@ fun WallMenuPriceAddEdit(
             button_enable = false
         }
 
-        ButtonView(title = if(MENU_EDIT) "Save Edit Menu" else "Save Menu", modifier.constrainAs(buttonAddMenu) {
+        ButtonView(title = if(MENU_EDIT) stringResource(R.string.Save_Edit_Menu) else stringResource(
+                    R.string.Save_menu), modifier.constrainAs(buttonAddMenu) {
             bottom.linkTo(parent.bottom, 16.dp)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
@@ -161,6 +183,7 @@ fun WallMenuPriceAddEdit(
                     is_packet = button_packet_menu,
                     is_dryer = button_dryer_menu,
                     idMenu = MENU_ID,
+                    is_service = button_service_menu,
                     navController = navController
                 )
             }
@@ -172,6 +195,7 @@ fun WallMenuPriceAddEdit(
                     name = text_name_menu.text,
                     is_packet = button_packet_menu,
                     is_dryer = button_dryer_menu,
+                    is_service = button_service_menu,
                     navController = navController
                 )
             }

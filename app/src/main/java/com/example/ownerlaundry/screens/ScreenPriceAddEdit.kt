@@ -20,6 +20,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.toSize
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.ownerlaundry.*
+import com.example.ownerlaundry.R
 import com.example.ownerlaundry.api.menu.MenuModel
 import com.example.ownerlaundry.api.menu.MenuViewModel
 import com.example.ownerlaundry.api.price.PriceViewModel
@@ -54,7 +56,7 @@ fun ScreenPriceAddEdit(
     Scaffold(
         topBar = { ViewTopBarEdit(
             navController = navController,
-            title = if(PRICE_EDIT) "Edit Price" else TITLE_SCREEN[6],
+            title = if(PRICE_EDIT) stringResource(R.string.Edit_Price) else stringResource(R.string.Add_Price),
             screenBack = Screens.Price.route,
         ) },
     ){
@@ -76,9 +78,9 @@ fun WallPriceAddEdit(
 //    machineViewModel: MachineViewModel
 ) {
     val dataName = listOf(
-        "Name Price",
-        "Price",
-        "Time Price",
+        stringResource(R.string.Name_Price),
+        stringResource(R.string.Price),
+        stringResource(R.string.Time_Price),
     )
 
     val selectionMenu = listOf("Giant", "Titan")
@@ -280,7 +282,8 @@ fun WallPriceAddEdit(
             button_enable = false
         }
 
-        ButtonView(title = if(PRICE_EDIT) "Save Edit Price" else "Save Price", modifier.constrainAs(ButtonAddPrice) {
+        ButtonView(title = if(PRICE_EDIT) stringResource(R.string.Save_Edit_Price) else stringResource(
+                    R.string.Save_Price), modifier.constrainAs(ButtonAddPrice) {
             bottom.linkTo(parent.bottom, 16.dp)
             start.linkTo(parent.start)
             end.linkTo(parent.end)

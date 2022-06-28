@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -65,7 +66,7 @@ fun PriceLoadData(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Can't load data",
+                    text = stringResource(R.string.Cant_Load_Data),
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary,
                 )
@@ -103,7 +104,7 @@ fun PriceLoadData(
                     )
 
                     Text(
-                        text = "Price Empty",
+                        text = stringResource(R.string.Price_Empty),
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp,
                         color = MaterialTheme.colorScheme.primary,

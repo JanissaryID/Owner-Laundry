@@ -12,12 +12,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.ownerlaundry.*
+import com.example.ownerlaundry.R
 import com.example.ownerlaundry.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -88,14 +90,14 @@ fun ViewMenuItem(
                 ) {
                     Text(
                         color = if(is_packet) MaterialTheme.colorScheme.surface else Color.LightGray,
-                        text = if(is_packet) "Packet Menu" else "Not Packet Menu",
+                        text = if(is_packet) stringResource(R.string.Packet_Menu) else stringResource(R.string.Not_Packet_Menu),
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp,
                         modifier = Modifier.padding(start = 8.dp, end = 8.dp)
                     )
                 }
                 Text(
-                    text = if(is_dryer) "Menu Dryer" else "Not Menu Dryer",
+                    text = if(is_dryer) stringResource(R.string.Menu_Dryer) else stringResource(R.string.Not_Menu_Dryer),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 16.sp,
                     color = if(is_dryer) Color.Red else MaterialTheme.colorScheme.secondary,

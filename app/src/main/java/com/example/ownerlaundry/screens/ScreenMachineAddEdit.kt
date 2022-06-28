@@ -13,12 +13,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.ownerlaundry.*
+import com.example.ownerlaundry.R
 import com.example.ownerlaundry.api.machine.MachineViewModel
 import com.example.ownerlaundry.component.ButtonView
 import com.example.ownerlaundry.component.ViewButtonMenu
@@ -39,7 +41,7 @@ fun ScreenMachineAddEdit(
     Scaffold(
         topBar = { ViewTopBarEdit(
             navController = navController,
-            title = if (MENU_EDIT) "Edit Machine" else TITLE_SCREEN[9],
+            title = if (MENU_EDIT) stringResource(R.string.Edit_Machine) else stringResource(R.string.Add_Machine),
             screenBack = Screens.Machine.route,
         ) },
     ){
@@ -61,13 +63,13 @@ fun WallMenuPriceAddEdit(
 //    machineViewModel: MachineViewModel
 ) {
     val dataName = listOf(
-        "Number Machine",
+        stringResource(R.string.Number_Machine),
         "Packet",
         "Dryer",
     )
 
     val selectionMenuClass = listOf("Giant", "Titan")
-    val selectionMenuType = listOf("Washer", "Dryer")
+    val selectionMenuType = listOf(stringResource(R.string.Washer), stringResource(R.string.Dryer))
 
     val context = LocalContext.current
 
@@ -180,7 +182,8 @@ fun WallMenuPriceAddEdit(
             button_enable = false
         }
 
-        ButtonView(title = if(MACHINE_EDIT) "Save Edit Machine" else "Save Machine", modifier.constrainAs(buttonAddMenu) {
+        ButtonView(title = if(MACHINE_EDIT) stringResource(R.string.Save_Edit_Machine) else stringResource(
+                    R.string.Save_machine), modifier.constrainAs(buttonAddMenu) {
             bottom.linkTo(parent.bottom, 16.dp)
             start.linkTo(parent.start)
             end.linkTo(parent.end)

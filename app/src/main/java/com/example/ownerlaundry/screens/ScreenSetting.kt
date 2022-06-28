@@ -13,11 +13,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.ownerlaundry.KEY_URL
+import com.example.ownerlaundry.R
 import com.example.ownerlaundry.TITLE_SCREEN
 import com.example.ownerlaundry.component.ButtonView
 import com.example.ownerlaundry.component.view.ViewTopBar
@@ -36,7 +38,7 @@ fun ScreenSetting(
    Scaffold(
         topBar = { ViewTopBar(
             navController = navController,
-            title = TITLE_SCREEN[10],
+            title = stringResource(R.string.Setting),
             screenBack = Screens.Home.route
         ) },
     ){
@@ -101,7 +103,7 @@ fun WallSetting(
                 }
 
                 ButtonView(
-                    title = "Save",
+                    title = stringResource(R.string.Save),
                     enable = button_enable,
                     modifier = Modifier.constrainAs(button){
                         top.linkTo(inputField.bottom, 10.dp)
