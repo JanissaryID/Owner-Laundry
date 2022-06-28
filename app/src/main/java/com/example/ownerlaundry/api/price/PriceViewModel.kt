@@ -282,7 +282,7 @@ class PriceViewModel: ViewModel() {
         }
     }
 
-    fun getIDPriceRemoveAll(menuViewModel: MenuViewModel = MenuViewModel(), navController: NavController, menuID: String){
+    fun getIDPriceRemoveAll(menuViewModel: MenuViewModel = MenuViewModel(), menuID: String){
         try {
             PriceApp.CreateInstance().fetchIdPrice(lookup = "*", menu = menuID).enqueue(object :
                 Callback<ArrayList<PriceModel>> {

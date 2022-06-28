@@ -235,7 +235,7 @@ class MenuViewModel: ViewModel() {
                             if (!menuListResponse.isNullOrEmpty()){
                                 for (item in menuListResponse){
 //                                    Log.d("debug", "Menu Response ID : ${item.id!!.toString()}")
-                                    priceViewModel.getIDPriceRemoveAll(navController = navController, menuID = item.id!!.toString())
+                                    priceViewModel.getIDPriceRemoveAll(menuID = item.id!!.toString())
                                 }
                                 deleteAllMenu = true
                                 moveDeleteStore(navController = navController)
