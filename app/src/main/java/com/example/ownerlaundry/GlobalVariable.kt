@@ -62,6 +62,12 @@ var MACHINE_NUMBER: Int by mutableStateOf(0)
 //Page Screen Variable
 var PAGE_SCREEN: String by mutableStateOf("")
 
+//Machine Variable Count
+var WASHER_TITAN: Int by mutableStateOf(0)
+var WASHER_GIANT: Int by mutableStateOf(0)
+var DRYER_TITAN: Int by mutableStateOf(0)
+var DRYER_GIANT: Int by mutableStateOf(0)
+
 //var PROGRESS_DELETE: Boolean by mutableStateOf(false)
 
 //Setting Variable

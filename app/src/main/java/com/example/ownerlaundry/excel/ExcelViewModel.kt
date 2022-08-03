@@ -2,12 +2,13 @@ package com.example.ownerlaundry.excel
 
 import android.os.Build
 import android.os.Environment
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.ownerlaundry.EXCEL_VALUE
+import com.example.ownerlaundry.*
 import jxl.Workbook
 import jxl.WorkbookSettings
 import jxl.format.Alignment
@@ -86,6 +87,11 @@ class ExcelViewModel: ViewModel() {
         val format4 = WritableCellFormat()
         format4.setBorder(Border.ALL, BorderLineStyle.THIN)
 
+        val font5 = WritableFont(WritableFont.ARIAL, 11, WritableFont.BOLD)
+        val format5 = WritableCellFormat(font5)
+//        format3.setBorder(Border.ALL, BorderLineStyle.THIN)
+        format5.alignment = Alignment.LEFT
+
         try {
             val sheet = workbook!!.createSheet("sheet1", 0)
             var sumPrice = 0
@@ -114,6 +120,28 @@ class ExcelViewModel: ViewModel() {
             sheet.addCell(Label(4, 0, "Payment",format1))
             sheet.addCell(Label(5, 0, "Price",format1))
             for (i in EXCEL_VALUE.indices) {
+
+                if(EXCEL_VALUE[i].transactionClassMachine == "Giant" && EXCEL_VALUE[i].isPacket == true){
+                    WASHER_GIANT++
+                    DRYER_GIANT++
+                }
+                else if(EXCEL_VALUE[i].transactionClassMachine == "Titan" && EXCEL_VALUE[i].isPacket == true){
+                    WASHER_TITAN++
+                    DRYER_TITAN++
+                }
+                else if(EXCEL_VALUE[i].transactionClassMachine == "Titan" && EXCEL_VALUE[i].transactionTypeMenu == "Washer"){
+                    WASHER_TITAN++
+                }
+                else if(EXCEL_VALUE[i].transactionClassMachine == "Giant" && EXCEL_VALUE[i].transactionTypeMenu == "Washer"){
+                    WASHER_GIANT++
+                }
+                else if(EXCEL_VALUE[i].transactionClassMachine == "Titan" && EXCEL_VALUE[i].transactionTypeMenu == "Dryer"){
+                    DRYER_TITAN++
+                }
+                else if(EXCEL_VALUE[i].transactionClassMachine == "Giant" && EXCEL_VALUE[i].transactionTypeMenu == "Dryer"){
+                    DRYER_GIANT++
+                }
+
                 sheet.addCell(Label(0, i + 2, (i+1).toString(), format2))
                 sheet.addCell(Label(1, i + 2, EXCEL_VALUE[i].transactionTypeMenu, format4))
                 sheet.addCell(Label(2, i + 2, EXCEL_VALUE[i].transactionDate, format2))
@@ -127,6 +155,22 @@ class ExcelViewModel: ViewModel() {
             sheet.mergeCells(0,celllist,4,celllist)
             sheet.addCell(Label(0, celllist, "Total",format3))
             sheet.addCell(Label(5, celllist, "$sumPrice",format3))
+
+            sheet.mergeCells(0,celllist + 2,1,celllist + 2)
+            sheet.mergeCells(0,celllist + 2,1,celllist + 3)
+            sheet.mergeCells(0,celllist + 2,1,celllist + 4)
+            sheet.mergeCells(0,celllist + 2,1,celllist + 5)
+
+            sheet.addCell(Label(0, celllist + 2, "Washer Giant",format5))
+            sheet.addCell(Label(0, celllist + 3, "Washer Titan",format5))
+            sheet.addCell(Label(0, celllist + 4, "Dryer Giant",format5))
+            sheet.addCell(Label(0, celllist + 5, "Dryer Titan",format5))
+
+            sheet.addCell(Label(2, celllist + 2, "$WASHER_GIANT",format5))
+            sheet.addCell(Label(2, celllist + 3, "$WASHER_TITAN",format5))
+            sheet.addCell(Label(2, celllist + 4, "$DRYER_GIANT",format5))
+            sheet.addCell(Label(2, celllist + 5, "$DRYER_TITAN",format5))
+
             stateExcel = 1
         } catch (e: java.lang.Exception) {
             e.printStackTrace()

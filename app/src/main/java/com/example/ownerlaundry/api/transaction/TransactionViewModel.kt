@@ -31,6 +31,7 @@ class TransactionViewModel: ViewModel() {
                         response.body()?.let {
                             transactionListResponse = response.body()!!
                             EXCEL_VALUE = transactionListResponse
+
 //                            Log.d("debug", "Code : ${response.code().toString()}")
                             Log.d("debug", "Transaction Data : ${transactionListResponse}")
                             stateTransaction = 1
