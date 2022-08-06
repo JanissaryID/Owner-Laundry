@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.ownerlaundry.*
+import com.example.ownerlaundry.api.debug.DebugViewModel
 import com.example.ownerlaundry.api.machine.MachineViewModel
 import com.example.ownerlaundry.api.menu.MenuViewModel
 import com.example.ownerlaundry.api.price.PriceViewModel
@@ -36,6 +37,7 @@ fun NavGraphSetup(
     transactionViewModel: TransactionViewModel,
     protoViewModel: ProtoViewModel,
     excelViewModel: ExcelViewModel,
+    debugViewModel: DebugViewModel,
     componentActivity: ComponentActivity
 ) {
     val context = LocalContext.current
@@ -159,8 +161,10 @@ fun NavGraphSetup(
         ){
             if (DATE_PICK != ""){
                 transactionViewModel.getTransaction()
+                debugViewModel.getDebug()
             }
             transactionViewModel.getTransaction()
+            debugViewModel.getDebug()
             ScreenTransaction(
                 navController = navController,
                 transactionViewModel = transactionViewModel,

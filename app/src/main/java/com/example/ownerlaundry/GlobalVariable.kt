@@ -4,6 +4,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.TextFieldValue
+import com.example.ownerlaundry.api.debug.DebugModel
+import com.example.ownerlaundry.api.debug.DebugTransactionModel
 import com.example.ownerlaundry.api.qris.QrisModel
 import com.example.ownerlaundry.api.transaction.TransactionModel
 
@@ -51,6 +53,13 @@ var DATE_PICK: String by mutableStateOf("")
 
 //Excel Variable
 var EXCEL_VALUE:List<TransactionModel> by mutableStateOf(arrayListOf())
+var EXCEL_VALUE_DEBUG:List<DebugModel> by mutableStateOf(arrayListOf())
+var EXCEL_VALUE_DEBUG_WASHER:List<DebugTransactionModel> by mutableStateOf(arrayListOf())
+var EXCEL_VALUE_DEBUG_DRYER:List<DebugTransactionModel> by mutableStateOf(arrayListOf())
+var EXCEL_VALUE_DEBUG_ALL:List<DebugTransactionModel> by mutableStateOf(arrayListOf())
+var ROW_WAHSER_EMPTY:List<Int> by mutableStateOf(arrayListOf())
+var ROW_DRYER_EMPTY:List<Int> by mutableStateOf(arrayListOf())
+var ROW_MACHINE_PLUS_ONE:ArrayList<Int> by mutableStateOf(arrayListOf())
 
 //Machine Variable
 var MACHINE_EDIT: Boolean by mutableStateOf(false)
@@ -63,10 +72,11 @@ var MACHINE_NUMBER: Int by mutableStateOf(0)
 var PAGE_SCREEN: String by mutableStateOf("")
 
 //Machine Variable Count
-var WASHER_TITAN: Int by mutableStateOf(0)
-var WASHER_GIANT: Int by mutableStateOf(0)
-var DRYER_TITAN: Int by mutableStateOf(0)
-var DRYER_GIANT: Int by mutableStateOf(0)
+var WASHER_COUNT_TITAN: Int by mutableStateOf(0)
+var DRYER_COUNT_TITAN: Int by mutableStateOf(0)
+var WASHER_COUNT_GIANT: Int by mutableStateOf(0)
+var DRYER_COUNT_GIANT: Int by mutableStateOf(0)
+var COUNT_MACHINE: Int by mutableStateOf(0)
 
 //var PROGRESS_DELETE: Boolean by mutableStateOf(false)
 

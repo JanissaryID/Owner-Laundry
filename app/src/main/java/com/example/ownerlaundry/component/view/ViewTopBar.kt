@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.ownerlaundry.*
 import com.example.ownerlaundry.R
+import com.example.ownerlaundry.api.debug.DebugViewModel
 import com.example.ownerlaundry.api.machine.MachineViewModel
 import com.example.ownerlaundry.api.menu.MenuViewModel
 import com.example.ownerlaundry.api.price.PriceViewModel
@@ -32,9 +33,7 @@ fun ViewTopBarEdit(
     screenBack: String,
     machineViewModel: MachineViewModel = MachineViewModel(),
     priceViewModel: PriceViewModel = PriceViewModel(),
-    menuViewModel: MenuViewModel = MenuViewModel(),
     qrisViewModel: QrisViewModel = QrisViewModel(),
-    storeViewModel: StoreViewModel = StoreViewModel()
 ) {
 
     val context = LocalContext.current
@@ -246,7 +245,7 @@ fun ViewTopBarTransaction(
     navController: NavController,
     excelViewModel: ExcelViewModel,
     title: String,
-//    qrisViewModel: QrisViewModel,
+    debugViewModel: DebugViewModel,
     screenBack: String
 ) {
     val context = LocalContext.current
@@ -299,11 +298,12 @@ fun ViewTopBarTransaction(
             IconButton(
                 enabled = button_clicked,
                 onClick = {
-//                    navController.navigate(route = Screens.Setting.route)
-//                    Log.d("debug", "Data : $EXCEL_VALUE")
                     button_clicked = false
                     Toast.makeText(context, "Export", Toast.LENGTH_SHORT).show()
-                    excelViewModel.createExcelSheet(DATE_PICK)
+
+                    debugViewModel.addListTransactionDebug()
+
+                    excelViewModel.createExcelSheet(DATE_PICK) //nanti balikkan lagi
                     if (excelViewModel.stateExcel == 1){
                         Toast.makeText(context, "Success Export", Toast.LENGTH_SHORT).show()
                     }

@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.ownerlaundry.*
+import com.example.ownerlaundry.api.debug.DebugViewModel
 import com.example.ownerlaundry.api.transaction.TransactionViewModel
 import com.example.ownerlaundry.component.transaction.TransactionLoadData
 import com.example.ownerlaundry.component.view.ViewDialogCalendar
@@ -28,7 +29,8 @@ import com.example.ownerlaundry.navigation.Screens
 fun ScreenTransaction(
     transactionViewModel: TransactionViewModel,
     navController: NavController,
-    excelViewModel: ExcelViewModel
+    excelViewModel: ExcelViewModel,
+    debugViewModel: DebugViewModel = DebugViewModel()
 ) {
     val context = LocalContext.current
 
@@ -37,6 +39,7 @@ fun ScreenTransaction(
             excelViewModel = excelViewModel,
             navController = navController,
             title = stringResource(R.string.Transaction),
+            debugViewModel = debugViewModel,
             screenBack = Screens.Menu.route
         ) },
 

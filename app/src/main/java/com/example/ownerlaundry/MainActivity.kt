@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.ownerlaundry.api.debug.DebugViewModel
 import com.example.ownerlaundry.api.machine.MachineViewModel
 import com.example.ownerlaundry.api.menu.MenuViewModel
 import com.example.ownerlaundry.api.price.PriceViewModel
@@ -38,6 +39,7 @@ class MainActivity : ComponentActivity() {
     val transactionViewModel by viewModels<TransactionViewModel>()
     val excelViewModel by viewModels<ExcelViewModel>()
     val machineViewModel by viewModels<MachineViewModel>()
+    val debugViewModel by viewModels<DebugViewModel>()
 
     private lateinit var protoViewModel: ProtoViewModel
 
@@ -67,6 +69,7 @@ class MainActivity : ComponentActivity() {
                     machineViewModel = machineViewModel,
                     excelViewModel = excelViewModel,
                     protoViewModel = protoViewModel,
+                    debugViewModel = debugViewModel,
                     componentActivity = this
                 )
             }
