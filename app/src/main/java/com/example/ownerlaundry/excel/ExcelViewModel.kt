@@ -109,31 +109,47 @@ class ExcelViewModel: ViewModel() {
             sheet.setColumnView(6,15)
             sheet.setColumnView(7,15)
 
-            sheet.mergeCells(0,0,0,1)
-            sheet.mergeCells(1,0,1,1)
-            sheet.mergeCells(2,0,2,1)
-            sheet.mergeCells(3,0,3,1)
-            sheet.mergeCells(4,0,4,1)
-            sheet.mergeCells(5,0,5,1)
-            sheet.mergeCells(6,0,6,1)
-            sheet.mergeCells(7,0,7,1)
+            sheet.mergeCells(0,0,1,0)
+            sheet.mergeCells(2,0,3,0)
+            sheet.mergeCells(0,1,1,1)
+            sheet.mergeCells(2,1,3,1)
+
+            sheet.mergeCells(0,3,1,3)
+            sheet.mergeCells(2,3,3,3)
+
+            sheet.addCell(Label(0, 0, "Toko", format5))
+            sheet.addCell(Label(2, 0, ": ${STORE_NAME}", format5))
+            sheet.addCell(Label(0, 1, "Alamat", format5))
+            sheet.addCell(Label(2, 1, ": ${STORE_ADDRESS}", format5))
+
+            sheet.addCell(Label(0, 3, "Tanggal", format5))
+            sheet.addCell(Label(2, 3, ": ${DATE_PICK}", format5))
+
+            sheet.mergeCells(0,5,0,6)
+            sheet.mergeCells(1,5,1,6)
+            sheet.mergeCells(2,5,2,6)
+            sheet.mergeCells(3,5,3,6)
+            sheet.mergeCells(4,5,4,6)
+            sheet.mergeCells(5,5,5,6)
+            sheet.mergeCells(6,5,6,6)
+            sheet.mergeCells(7,5,7,6)
 
             // column and row title
-            sheet.addCell(Label(0, 0, "NO", format1))
-            sheet.addCell(Label(1, 0, "JAM",format1))
-            sheet.addCell(Label(2, 0, "NO MESIN",format1))
-            sheet.addCell(Label(3, 0, "WASHER",format1))
-            sheet.addCell(Label(4, 0, "JAM",format1))
-            sheet.addCell(Label(5, 0, "NO MESIN",format1))
-            sheet.addCell(Label(6, 0, "DRYER",format1))
-            sheet.addCell(Label(7, 0, "TOTAL W+D",format1))
+            sheet.addCell(Label(0, 5, "NO", format1))
+            sheet.addCell(Label(1, 5, "JAM",format1))
+            sheet.addCell(Label(2, 5, "NO MESIN",format1))
+            sheet.addCell(Label(3, 5, "WASHER",format1))
+            sheet.addCell(Label(4, 5, "JAM",format1))
+            sheet.addCell(Label(5, 5, "NO MESIN",format1))
+            sheet.addCell(Label(6, 5, "DRYER",format1))
+            sheet.addCell(Label(7, 5, "TOTAL W+D",format1))
 
             for (i in EXCEL_VALUE_DEBUG_ALL.indices) {
                 if (EXCEL_VALUE_DEBUG_ALL[i].TypeMenu == false) {
                     if (ROW_WAHSER_EMPTY.isNullOrEmpty()) {
-                        sheet.addCell(Label(1, rowWasher + 2, EXCEL_VALUE_DEBUG_ALL[i].time, format2))
-                        sheet.addCell(Label(2, rowWasher + 2, EXCEL_VALUE_DEBUG_ALL[i].NumberMachine.toString(), format2))
-                        sheet.addCell(Label(3, rowWasher + 2, "✔", format2))
+                        sheet.addCell(Label(1, rowWasher + 7, EXCEL_VALUE_DEBUG_ALL[i].time, format2))
+                        sheet.addCell(Label(2, rowWasher + 7, EXCEL_VALUE_DEBUG_ALL[i].NumberMachine.toString(), format2))
+                        sheet.addCell(Label(3, rowWasher + 7, "✔", format2))
                     }
                     else {
                         for ((index, value) in ROW_WAHSER_EMPTY.withIndex()) {
@@ -143,9 +159,9 @@ class ExcelViewModel: ViewModel() {
                                 break
                             }
                         }
-                        sheet.addCell(Label(1, rowWasher + 2, EXCEL_VALUE_DEBUG_ALL[i].time, format2))
-                        sheet.addCell(Label(2, rowWasher + 2, EXCEL_VALUE_DEBUG_ALL[i].NumberMachine.toString(), format2))
-                        sheet.addCell(Label(3, rowWasher + 2, "✔", format2))
+                        sheet.addCell(Label(1, rowWasher + 7, EXCEL_VALUE_DEBUG_ALL[i].time, format2))
+                        sheet.addCell(Label(2, rowWasher + 7, EXCEL_VALUE_DEBUG_ALL[i].NumberMachine.toString(), format2))
+                        sheet.addCell(Label(3, rowWasher + 7, "✔", format2))
                     }
                     rowWasher++
                 }
@@ -153,9 +169,9 @@ class ExcelViewModel: ViewModel() {
             for (i in EXCEL_VALUE_DEBUG_ALL.indices) {
                 if (EXCEL_VALUE_DEBUG_ALL[i].TypeMenu == true){
                     if (ROW_DRYER_EMPTY.isNullOrEmpty()){
-                        sheet.addCell(Label(4, rowDryer + 2, EXCEL_VALUE_DEBUG_ALL[i].time, format2))
-                        sheet.addCell(Label(5, rowDryer + 2, EXCEL_VALUE_DEBUG_ALL[i].NumberMachine.toString(), format2))
-                        sheet.addCell(Label(6, rowDryer + 2, "✔",format2))
+                        sheet.addCell(Label(4, rowDryer + 7, EXCEL_VALUE_DEBUG_ALL[i].time, format2))
+                        sheet.addCell(Label(5, rowDryer + 7, EXCEL_VALUE_DEBUG_ALL[i].NumberMachine.toString(), format2))
+                        sheet.addCell(Label(6, rowDryer + 7, "✔",format2))
                     }
                     else{
                         for((index, value) in ROW_DRYER_EMPTY.withIndex()){
@@ -165,9 +181,9 @@ class ExcelViewModel: ViewModel() {
                             }
                         }
 //                        Log.d("debug", "Row Dryer : ${rowDryer}")
-                        sheet.addCell(Label(4, rowDryer + 2, EXCEL_VALUE_DEBUG_ALL[i].time, format2))
-                        sheet.addCell(Label(5, rowDryer + 2, EXCEL_VALUE_DEBUG_ALL[i].NumberMachine.toString(), format2))
-                        sheet.addCell(Label(6, rowDryer + 2, "✔",format2))
+                        sheet.addCell(Label(4, rowDryer + 7, EXCEL_VALUE_DEBUG_ALL[i].time, format2))
+                        sheet.addCell(Label(5, rowDryer + 7, EXCEL_VALUE_DEBUG_ALL[i].NumberMachine.toString(), format2))
+                        sheet.addCell(Label(6, rowDryer + 7, "✔",format2))
                     }
                     rowDryer++
                 }
@@ -177,7 +193,7 @@ class ExcelViewModel: ViewModel() {
                 COUNT_MACHINE = 0
                 Log.d("debug", "one")
                 for (i in 1..rowWasher){
-                    sheet.addCell(Label(0, i + 1, i.toString(), format2))
+                    sheet.addCell(Label(0, i + 6, i.toString(), format2))
                     for((index, value) in ROW_MACHINE_PLUS_ONE.withIndex()){
                         Log.d("debug", "Row Washer $i -- value row -- $value count -- $COUNT_MACHINE")
                         Log.d("debug", "Index plus 1 $index")
@@ -188,10 +204,10 @@ class ExcelViewModel: ViewModel() {
                         }
                     }
                     COUNT_MACHINE+=2
-                    sheet.addCell(Label(7, i + 1, "$COUNT_MACHINE", format1))
+                    sheet.addCell(Label(7, i + 6, "$COUNT_MACHINE", format1))
                 }
 
-                var celllist : Int = rowWasher + 2
+                var celllist : Int = rowWasher + 7
 
                 sheet.mergeCells(0,celllist,2,celllist)
                 sheet.mergeCells(4,celllist,5,celllist)
@@ -206,6 +222,7 @@ class ExcelViewModel: ViewModel() {
 
                 sheet.addCell(Label(3, celllist, "${EXCEL_VALUE_DEBUG_WASHER.size}",format3))
                 sheet.addCell(Label(6, celllist, "${EXCEL_VALUE_DEBUG_DRYER.size}",format3))
+                sheet.addCell(Label(7, celllist, "${COUNT_MACHINE}",format3))
 
                 sheet.addCell(Label(0, celllist + 2, "Total Washer Kecil",format5))
                 sheet.addCell(Label(0, celllist + 3, "Total Washer Besar",format5))
@@ -221,7 +238,7 @@ class ExcelViewModel: ViewModel() {
                 COUNT_MACHINE = 0
                 Log.d("debug", "two")
                 for (i in 1..rowDryer){
-                    sheet.addCell(Label(0, i + 1, i.toString(), format2))
+                    sheet.addCell(Label(0, i + 6, i.toString(), format2))
 //                    Log.d("debug", "$i")
                     for((index, value) in ROW_MACHINE_PLUS_ONE.withIndex()){
                         Log.d("debug", "Row Dryer $i -- value row -- $value count -- $COUNT_MACHINE")
@@ -233,10 +250,10 @@ class ExcelViewModel: ViewModel() {
                         }
                     }
                     COUNT_MACHINE+=2
-                    sheet.addCell(Label(7, i + 1, "$COUNT_MACHINE", format1))
+                    sheet.addCell(Label(7, i + 6, "$COUNT_MACHINE", format1))
                 }
 
-                var celllist : Int = rowDryer + 2
+                var celllist : Int = rowDryer + 7
 
                 sheet.mergeCells(0,celllist,2,celllist)
                 sheet.mergeCells(4,celllist,5,celllist)
@@ -251,6 +268,7 @@ class ExcelViewModel: ViewModel() {
 
                 sheet.addCell(Label(3, celllist, "${EXCEL_VALUE_DEBUG_WASHER.size}",format3))
                 sheet.addCell(Label(6, celllist, "${EXCEL_VALUE_DEBUG_DRYER.size}",format3))
+                sheet.addCell(Label(7, celllist, "${COUNT_MACHINE}",format3))
 
                 sheet.addCell(Label(0, celllist + 2, "Total Washer Kecil",format5))
                 sheet.addCell(Label(0, celllist + 3, "Total Washer Besar",format5))
