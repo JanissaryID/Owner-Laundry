@@ -217,6 +217,12 @@ class ExcelViewModel: ViewModel() {
                 sheet.mergeCells(0,celllist + 4,1,celllist + 4)
                 sheet.mergeCells(0,celllist + 5,1,celllist + 5)
 
+                sheet.mergeCells(5,celllist + 2,6,celllist + 2)
+                sheet.mergeCells(5,celllist + 3,6,celllist + 3)
+                sheet.mergeCells(5,celllist + 4,6,celllist + 4)
+                sheet.mergeCells(5,celllist + 5,6,celllist + 5)
+                sheet.mergeCells(5,celllist + 6,6,celllist + 6)
+
                 sheet.addCell(Label(0, celllist, "Total Washer",format3))
                 sheet.addCell(Label(4, celllist, "Total Dryer",format3))
 
@@ -233,6 +239,18 @@ class ExcelViewModel: ViewModel() {
                 sheet.addCell(Label(2, celllist + 3, ": $WASHER_COUNT_TITAN",format5))
                 sheet.addCell(Label(2, celllist + 4, ": $DRYER_COUNT_GIANT",format5))
                 sheet.addCell(Label(2, celllist + 5, ": $DRYER_COUNT_TITAN",format5))
+
+                sheet.addCell(Label(5, celllist + 2, "Catatan nomor mesin : ",format5))
+
+                sheet.addCell(Label(5, celllist + 3, "Washer Besar",format5))
+                sheet.addCell(Label(5, celllist + 4, "Washer Kecil",format5))
+                sheet.addCell(Label(5, celllist + 5, "Dryer Besar",format5))
+                sheet.addCell(Label(5, celllist + 6, "Dryer Kecil",format5))
+
+                sheet.addCell(Label(7, celllist + 3, ": 1",format5))
+                sheet.addCell(Label(7, celllist + 4, ": 3, 5",format5))
+                sheet.addCell(Label(7, celllist + 5, ": 2",format5))
+                sheet.addCell(Label(7, celllist + 6, ": 4, 6",format5))
             }
             else{
                 COUNT_MACHINE = 0
@@ -263,6 +281,12 @@ class ExcelViewModel: ViewModel() {
                 sheet.mergeCells(0,celllist + 4,1,celllist + 4)
                 sheet.mergeCells(0,celllist + 5,1,celllist + 5)
 
+                sheet.mergeCells(5,celllist + 2,6,celllist + 2)
+                sheet.mergeCells(5,celllist + 3,6,celllist + 3)
+                sheet.mergeCells(5,celllist + 4,6,celllist + 4)
+                sheet.mergeCells(5,celllist + 5,6,celllist + 5)
+                sheet.mergeCells(5,celllist + 6,6,celllist + 6)
+
                 sheet.addCell(Label(0, celllist, "Total Washer",format3))
                 sheet.addCell(Label(4, celllist, "Total Dryer",format3))
 
@@ -279,6 +303,18 @@ class ExcelViewModel: ViewModel() {
                 sheet.addCell(Label(2, celllist + 3, ": $WASHER_COUNT_TITAN",format5))
                 sheet.addCell(Label(2, celllist + 4, ": $DRYER_COUNT_GIANT",format5))
                 sheet.addCell(Label(2, celllist + 5, ": $DRYER_COUNT_TITAN",format5))
+
+                sheet.addCell(Label(5, celllist + 2, "Catatan nomor mesin : ",format5))
+
+                sheet.addCell(Label(5, celllist + 3, "Washer Besar",format5))
+                sheet.addCell(Label(5, celllist + 4, "Washer Kecil",format5))
+                sheet.addCell(Label(5, celllist + 5, "Dryer Besar",format5))
+                sheet.addCell(Label(5, celllist + 6, "Dryer Kecil",format5))
+
+                sheet.addCell(Label(7, celllist + 3, ": 1",format5))
+                sheet.addCell(Label(7, celllist + 4, ": 3, 5",format5))
+                sheet.addCell(Label(7, celllist + 5, ": 2",format5))
+                sheet.addCell(Label(7, celllist + 6, ": 4, 6",format5))
             }
             
             WASHER_COUNT_GIANT = 0
